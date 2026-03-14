@@ -5,8 +5,8 @@ import ApiService from '../services/api-service.js';
 
 class HomepageController {
     constructor() {
-        this.$hero = $('.hero-banner');
-        this.$testimonials = $('.testimonials-slider');
+        this.$hero = $('.hero-banner-premium');
+        this.$testimonials = $('.testimonials-slider-premium');
     }
 
     init() {

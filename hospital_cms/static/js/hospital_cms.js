@@ -44,6 +44,9 @@ import ServicesModule from './modules/pillars/services.js';
 import PatientResourcesModule from './modules/pillars/patient-resources.js';
 import ContactModule from './modules/pillars/contact.js';
 
+// Specialized Clinical Controllers
+import SpecializedDepartmentController from '/static/js/departments.js';
+
 /**
  * Registry of all available modules for global access if needed.
  * This satisfies the requirement to "use all" imports in the entry script.
@@ -79,6 +82,9 @@ const HospitalCMS = {
         Services: ServicesModule,
         PatientResources: PatientResourcesModule,
         Contact: ContactModule
+    },
+    Specialized: {
+        Department: SpecializedDepartmentController
     },
     // Registry for active instances
     Instances: {}
@@ -139,6 +145,15 @@ $(document).ready(() => {
             if (Pillar) {
                 HospitalCMS.Instances.Modules[activeModuleName] = new Pillar();
                 HospitalCMS.Instances.Modules[activeModuleName].init();
+            }
+
+            // Specialized clinical interaction for departments
+            if (activeModuleName === 'departments') {
+                console.log('[ORCHESTRATION]: Initializing Specialized Clinical Interaction Hub...');
+                console.log('[ORCHESTRATION]: Specialized Clinical Styles (departments.css) Active.');
+                HospitalCMS.Instances.Specialized = HospitalCMS.Instances.Specialized || {};
+                HospitalCMS.Instances.Specialized.Department = new SpecializedDepartmentController();
+                HospitalCMS.Instances.Specialized.Department.init();
             }
         }
     }

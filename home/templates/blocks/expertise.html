@@ -1,0 +1,47 @@
+<section id="expertise" class="clinical-expertise py-5 bg-light-soft">
+    <div class="container">
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-7 text-center">
+                <h2 class="section-title fw-bold mb-3">{{ value.title }}</h2>
+                <div class="section-divider mx-auto mb-4" style="width: 60px; height: 4px; background: linear-gradient(90deg, #3498db, #2ecc71); border-radius: 2px;"></div>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for item in value.items %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="expertise-card h-100 p-4 bg-white shadow-sm border-0 rounded-4 transition-all hover-translate-y">
+                        <div class="icon-wrapper mb-3 d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 60px; height: 60px; background: rgba(52, 152, 219, 0.1); color: #3498db;">
+                            <i class="{{ item.icon|default:'fas fa-stethoscope' }} fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold mb-2">{{ item.procedure }}</h4>
+                        <p class="text-muted small mb-3">{{ item.description }}</p>
+                        {% if item.success_rate %}
+                            <div class="success-metric d-flex align-items-center gap-2 mt-auto">
+                                <div class="progress flex-grow-1" style="height: 6px;">
+                                    <div class="progress-bar bg-success-gradient" role="progressbar" style="width: {{ item.success_rate }}"></div>
+                                </div>
+                                <span class="fw-bold text-success small">{{ item.success_rate }} Success</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    .bg-light-soft {
+        background-color: #f8f9fa;
+    }
+    .bg-success-gradient {
+        background: linear-gradient(90deg, #2ecc71, #27ae60);
+    }
+    .hover-translate-y:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
+    }
+    .expertise-card {
+        border: 1px solid rgba(0,0,0,0.03) !important;
+    }
+</style>

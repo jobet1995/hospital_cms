@@ -1,0 +1,52 @@
+{% load wagtailimages_tags %}
+
+<section class="department-hero position-relative overflow-hidden py-5 mb-5" style="min-height: 400px;">
+    {% image value.background_image fill-1920x600 as bg_img %}
+    <div class="hero-bg-wrapper position-absolute top-0 start-0 w-100 h-100" style="background: url('{{ bg_img.url }}') center/cover no-repeat;">
+        <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 152, 219, 0.4) 100%);"></div>
+    </div>
+    
+    <div class="container position-relative z-index-10 h-100 d-flex flex-column justify-content-center py-5">
+        <div class="row">
+            <div class="col-lg-8 text-white">
+                {% if value.unit_code %}
+                    <span class="badge bg-primary-gradient mb-3 px-3 py-2 text-uppercase fw-bold shadow-sm" style="letter-spacing: 1px; font-size: 0.8rem; border-radius: 50px;">
+                        Unit Code: {{ value.unit_code }}
+                    </span>
+                {% endif %}
+                <h1 class="display-3 fw-bold mb-3 animate-fade-in-up text-shadow-premium">{{ value.title }}</h1>
+                {% if value.subtitle %}
+                    <p class="lead mb-4 opacity-90 text-shadow-subtle">{{ value.subtitle }}</p>
+                {% endif %}
+                <div class="d-flex gap-3">
+                    <a href="#appointment" class="btn btn-primary btn-premium px-4 py-2 shadow-premium">Book Consultation</a>
+                    <a href="#expertise" class="btn btn-outline-light px-4 py-2">Explore Specialties</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .text-shadow-premium {
+        text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .text-shadow-subtle {
+        text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .bg-primary-gradient {
+        background: linear-gradient(90deg, #3498db, #2980b9);
+    }
+    .shadow-premium {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .btn-premium {
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        border: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-premium:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 35px rgba(52, 152, 219, 0.3);
+    }
+</style>

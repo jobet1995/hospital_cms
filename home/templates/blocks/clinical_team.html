@@ -1,0 +1,62 @@
+{% load wagtailimages_tags %}
+
+<section id="team" class="clinical-team py-5">
+    <div class="container">
+        <div class="row mb-5 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-6 fw-bold mb-2">Our Medical Specialists</h2>
+                <p class="text-muted mb-0">Driven by clinical excellence and patient-centered care.</p>
+            </div>
+            <div class="col-lg-6 text-lg-end">
+                <a href="/doctors/" class="btn btn-link text-decoration-none fw-bold text-primary">View Full Directory <i class="fas fa-arrow-right ms-2 transition-all hover-translate-x"></i></a>
+            </div>
+        </div>
+
+        <div class="row g-4 team-grid">
+            {% if page.department_snippet %}
+                {% for doctor in page.department_snippet.doctors.all %}
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="doctor-minimal-card border-0 rounded-4 overflow-hidden shadow-sm transition-all hover-scale-up">
+                            {% if doctor.photo %}
+                                {% image doctor.photo fill-400x500 as d_photo %}
+                                <div class="doctor-photo-wrapper position-relative">
+                                    <img src="{{ d_photo.url }}" class="img-fluid w-100" alt="{{ doctor.name }}">
+                                    <div class="card-overlay-bottom position-absolute bottom-0 start-0 w-100 p-3" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
+                                        <h6 class="text-white mb-0 fw-bold">{{ doctor.name }}</h6>
+                                        <p class="text-white-50 small mb-0">{{ doctor.specialty }}</p>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                                    <i class="fas fa-user-md fa-4x text-muted opacity-30"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <div class="opacity-30 mb-3">
+                            <i class="fas fa-users-slash fa-3x"></i>
+                        </div>
+                        <p class="text-muted">No specialists currently listed for this unit.</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 py-5 text-center alert alert-info border-0 rounded-4">
+                    <p class="mb-0 fw-bold"><i class="fas fa-info-circle me-2"></i> Clinical Meta-Sync required: Link a Department snippet in the page settings to display the team.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<style>
+    .hover-scale-up:hover {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+        z-index: 10;
+    }
+    .hover-translate-x:hover {
+        padding-left: 10px;
+    }
+</style>

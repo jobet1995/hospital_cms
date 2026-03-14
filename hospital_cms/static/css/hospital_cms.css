@@ -15,8 +15,6 @@
 @import url('footer.css');
 
 /* Specialized Module Styles */
-@import url('homepage.css');
-@import url('departments.css');
 @import url('doctors.css');
 @import url('appointments.css');
 @import url('telemedicine.css');

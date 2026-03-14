@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/departments.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="department-listing py-5 bg-light-soft" style="min-height: 80vh;">
+    <div class="container py-5">
+        <div class="row mb-5 text-center">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="display-4 fw-bold mb-3 text-secondary">{{ page.title }}</h1>
+                {% if page.subtitle %}
+                    <p class="lead text-muted">{{ page.subtitle }}</p>
+                {% endif %}
+                <div class="divider mx-auto bg-primary my-4" style="width: 80px; height: 5px; border-radius: 10px;"></div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for dept in departments %}
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card department-hub-card h-100 border-0 shadow-premium rounded-5 overflow-hidden transition-all hover-float">
+                        {% if dept.image %}
+                            {% image dept.image fill-600x400 as d_img %}
+                            <div class="card-img-top-wrapper position-relative" style="height: 200px;">
+                                <img src="{{ d_img.url }}" class="w-100 h-100 object-fit-cover" alt="{{ dept.name }}">
+                                <div class="card-overlay-gradient position-absolute bottom-0 start-0 w-100 h-50" style="background: linear-gradient(transparent, rgba(0,0,0,0.6));"></div>
+                            </div>
+                        {% else %}
+                            <div class="bg-secondary opacity-10 d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <i class="fas fa-hospital-symbol fa-4x"></i>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="card-body p-4 text-center">
+                            <div class="icon-circle mb-3 mx-auto d-flex align-items-center justify-content-center bg-primary-soft rounded-circle" style="width: 50px; height: 50px;">
+                                <i class="{{ dept.icon|default:'fas fa-microscope' }} text-primary"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2">{{ dept.name }}</h5>
+                            <p class="text-muted small mb-4 line-clamp-3">{{ dept.description|truncatewords:20 }}</p>
+                            <a href="/departments/{{ dept.slug }}/" class="btn btn-outline-primary btn-sm rounded-pill px-4">Explore Unit</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

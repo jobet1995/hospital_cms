@@ -190,6 +190,83 @@ class FooterStreamBlock(blocks.StreamBlock):
         max_num = 1
 
 
+class DepartmentHeroBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True)
+    subtitle = blocks.TextBlock(required=False)
+    background_image = ImageChooserBlock(required=True)
+    unit_code = blocks.CharBlock(required=False, help_text="e.g., CARD-01")
+    
+    class Meta:
+        icon = 'title'
+        label = 'Department Hero'
+        template = 'blocks/departments/department_hero.html'
+
+
+class ExpertiseBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, default="Specialized Clinical Expertise")
+    items = blocks.ListBlock(blocks.StructBlock([
+        ('procedure', blocks.CharBlock(required=True)),
+        ('description', blocks.TextBlock(required=True)),
+        ('success_rate', blocks.CharBlock(required=False, help_text="e.g., 98%")),
+        ('icon', blocks.CharBlock(required=False, help_text="FontAwesome icon class"))
+    ]))
+
+    class Meta:
+        icon = 'pick'
+        label = 'Clinical Expertise'
+        template = 'blocks/departments/expertise.html'
+
+
+class FacilitySpotlightBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, default="Advanced Medical Technology")
+    description = blocks.TextBlock(required=True)
+    facilities = blocks.ListBlock(blocks.StructBlock([
+        ('name', blocks.CharBlock(required=True)),
+        ('image', ImageChooserBlock(required=True)),
+        ('details', blocks.TextBlock(required=True))
+    ]))
+
+    class Meta:
+        icon = 'site'
+        label = 'Facility Spotlight'
+        template = 'blocks/departments/facility_spotlight.html'
+
+
+class PatientGuideBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, default="Patient Resources & Preparation")
+    guides = blocks.ListBlock(blocks.StructBlock([
+        ('heading', blocks.CharBlock(required=True)),
+        ('content', blocks.RichTextBlock(required=True)),
+        ('download_label', blocks.CharBlock(required=False)),
+        ('download_link', blocks.URLBlock(required=False))
+    ]))
+
+    class Meta:
+        icon = 'help'
+        label = 'Patient Guide'
+        template = 'blocks/departments/patient_guide.html'
+
+
+class ClinicalTeamBlock(blocks.StaticBlock):
+    class Meta:
+        icon = 'group'
+        label = 'Clinical Team'
+        admin_text = 'Displays doctors associated with this department automatically.'
+        template = 'blocks/departments/clinical_team.html'
+
+
+class DepartmentPageStreamBlock(blocks.StreamBlock):
+    hero = DepartmentHeroBlock()
+    expertise = ExpertiseBlock()
+    facilities = FacilitySpotlightBlock()
+    patient_guide = PatientGuideBlock()
+    clinical_team = ClinicalTeamBlock()
+    rich_text = blocks.RichTextBlock()
+
+    class Meta:
+        label = 'Department Page Content'
+
+
 class HomePageStreamBlock(blocks.StreamBlock):
     hero_banner = HeroBannerBlock()
     featured_departments = blocks.ListBlock(DepartmentCardBlock())

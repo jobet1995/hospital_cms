@@ -159,3 +159,40 @@ class HomePage(Page):
     ]
 
 
+class DepartmentPage(Page):
+    """Page for individual clinical departments"""
+    body = StreamField(DepartmentPageStreamBlock, blank=True, use_json_field=True)
+    
+    department_snippet = models.ForeignKey(
+        'home.Department',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Link this page to a department snippet for clinical metadata sync"
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('department_snippet'),
+        FieldPanel('body'),
+    ]
+
+    class Meta:
+        verbose_name = "Clinical Department Page"
+
+
+class DepartmentListingPage(Page):
+    """Page for listing all medical departments"""
+    subtitle = models.CharField(max_length=255, blank=True)
+    
+    content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['departments'] = Department.objects.all()
+        return context
+
+    class Meta:
+        verbose_name = "Department Listing Hub"

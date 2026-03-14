@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/departments.css' %}">
+{% endblock %}
+
+{% block content %}
+    <article class="department-detail-page animate-fade-in" data-unit-slug="{{ page.slug }}">
+        {# Explicit Structural Block Orchestration #}
+        {% for block in page.body %}
+            <div class="block-wrapper clinical-component-wrapper">
+                {% if block.block_type == 'hero' %}
+                    {% include "blocks/department_hero.html" with value=block.value %}
+                {% elif block.block_type == 'expertise' %}
+                    {% include "blocks/expertise.html" with value=block.value %}
+                {% elif block.block_type == 'facilities' %}
+                    {% include "blocks/facility_spotlight.html" with value=block.value %}
+                {% elif block.block_type == 'patient_guide' %}
+                    {% include "blocks/patient_guide.html" with value=block.value %}
+                {% elif block.block_type == 'clinical_team' %}
+                    {# Clinical Team logic is typically handled by the block template itself to link to Doctor models #}
+                    {% include "blocks/clinical_team.html" with value=block.value %}
+                {% else %}
+                    {# Standard Fallback for Rich Text or Raw HTML blocks #}
+                    {% include_block block %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </article>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/departments.js' %}"></script>
+{% endblock %}

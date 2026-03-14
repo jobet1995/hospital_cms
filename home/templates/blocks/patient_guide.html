@@ -1,0 +1,53 @@
+<section class="patient-guide py-5 bg-dark text-white rounded-5 my-5 overflow-hidden position-relative">
+    <div class="guide-bg-accent position-absolute top-0 end-0 h-100 w-25 opacity-10" style="background: linear-gradient(90deg, transparent, #3498db);"></div>
+    <div class="container position-relative z-index-1">
+        <div class="row mb-5">
+            <div class="col text-center">
+                <h2 class="display-6 fw-bold mb-3 text-gradient-primary">{{ value.title }}</h2>
+                <p class="text-white-50">Essential information for a seamless clinical experience</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-12">
+                <div class="accordion accordion-flush premium-accordion" id="guideAccordion">
+                    {% for guide in value.guides %}
+                        <div class="accordion-item bg-transparent border-bottom border-secondary">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white fw-bold py-4 fs-5 border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#guide-{{ forloop.counter }}">
+                                    <span class="me-3 text-primary-light">0{{ forloop.counter }}.</span> {{ guide.heading }}
+                                </button>
+                            </h2>
+                            <div id="guide-{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#guideAccordion">
+                                <div class="accordion-body text-white-50 pb-4 lh-lg">
+                                    {{ guide.content }}
+                                    {% if guide.download_link %}
+                                        <div class="mt-4">
+                                            <a href="{{ guide.download_link }}" class="btn btn-outline-primary btn-sm rounded-pill px-4">
+                                                <i class="fas fa-download me-2"></i> {{ guide.download_label|default:'Download Resource' }}
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .text-gradient-primary {
+        background: linear-gradient(90deg, #3498db, #00d2ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .text-primary-light {
+        color: #3498db;
+    }
+    .premium-accordion .accordion-button:after {
+        filter: invert(1);
+    }
+</style>
