@@ -26,6 +26,11 @@
                     {% include "blocks/hero_banner.html" with value=block.value %}
                 {% elif block.block_type == 'featured_departments' %}
                     <div class="container py-5">
+                        <div class="section-header-premium text-center mb-5 animate-fade-in">
+                            <span class="badge-premium mb-2">Medical Excellence</span>
+                            <h2 class="display-5 fw-bold text-slate-900">Our Specialized Departments</h2>
+                            <div class="header-accent-line mx-auto"></div>
+                        </div>
                         <div class="row">
                             {% for item in block.value %}
                                 <div class="col-lg-4 mb-4">
@@ -36,6 +41,11 @@
                     </div>
                 {% elif block.block_type == 'featured_doctors' %}
                     <div class="container py-5">
+                        <div class="section-header-premium text-center mb-5 animate-fade-in">
+                            <span class="badge-premium mb-2">Expert Care</span>
+                            <h2 class="display-5 fw-bold text-slate-900">Meet Our Expert Doctors</h2>
+                            <div class="header-accent-line mx-auto"></div>
+                        </div>
                         <div class="row">
                             {% for item in block.value %}
                                 <div class="col-lg-3 mb-4">
@@ -46,6 +56,11 @@
                     </div>
                 {% elif block.block_type == 'health_tips' %}
                     <div class="container py-5">
+                        <div class="section-header-premium text-center mb-5 animate-fade-in">
+                            <span class="badge-premium mb-2">Wellness & Health</span>
+                            <h2 class="display-5 fw-bold text-slate-900">Daily Health Tips</h2>
+                            <div class="header-accent-line mx-auto"></div>
+                        </div>
                         <div class="row">
                             {% for item in block.value %}
                                 <div class="col-lg-6 mb-4">
@@ -56,15 +71,29 @@
                     </div>
                 {% elif block.block_type == 'news' %}
                     <div class="container py-5">
-                        {% for item in block.value %}
-                            {% include "blocks/news_card.html" with value=item %}
-                        {% endfor %}
+                        <div class="section-header-premium text-center mb-5 animate-fade-in">
+                            <span class="badge-premium mb-2">News & Updates</span>
+                            <h2 class="display-5 fw-bold text-slate-900">Latest Hospital News</h2>
+                            <div class="header-accent-line mx-auto"></div>
+                        </div>
+                        <div class="row">
+                            {% for item in block.value %}
+                                <div class="col-lg-12 mb-4">
+                                    {% include "blocks/news_card.html" with value=item %}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 {% elif block.block_type == 'emergency_banner' %}
                     {% include "blocks/emergency_banner.html" with value=block.value %}
                 {% elif block.block_type == 'testimonials' %}
                     <div class="testimonials-slider-premium py-5">
                         <div class="container">
+                            <div class="section-header-premium text-center mb-5 animate-fade-in">
+                                <span class="badge-premium mb-2">Patient Feedback</span>
+                                <h2 class="display-5 fw-bold text-slate-900">What Our Patients Say</h2>
+                                <div class="header-accent-line mx-auto"></div>
+                            </div>
                             {% for item in block.value %}
                                 {% include "blocks/testimonial.html" with value=item %}
                             {% endfor %}
@@ -72,6 +101,11 @@
                     </div>
                 {% elif block.block_type == 'quick_links' %}
                     <div class="container py-5">
+                        <div class="section-header-premium text-center mb-5 animate-fade-in">
+                            <span class="badge-premium mb-2">Quick Access</span>
+                            <h2 class="display-5 fw-bold text-slate-900">Useful Resources</h2>
+                            <div class="header-accent-line mx-auto"></div>
+                        </div>
                         <div class="row">
                             {% for item in block.value %}
                                 <div class="col-md-3 mb-4">

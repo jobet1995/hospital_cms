@@ -71,6 +71,20 @@
     width: fit-content;
 }
 
+.section-header-premium .badge-premium {
+    background: var(--primary-soft) !important;
+    color: var(--primary) !important;
+    border-color: var(--primary-soft) !important;
+    box-shadow: none !important;
+}
+
+.header-accent-line {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: var(--radius-full);
+}
+
 .live-pulse {
     width: 8px;
     height: 8px;
