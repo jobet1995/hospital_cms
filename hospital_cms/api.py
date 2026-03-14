@@ -23,6 +23,44 @@ def api_response(data=None, message="Success", status="success", code=200):
         }
     }
     return JsonResponse(response_data, status=code, encoder=DjangoJSONEncoder)
+    
+def serialize_block_value(value):
+    """
+    Recursively serializes StreamField block values into JSON-safe formats.
+    Handles Images, Pages, and nested Struct/List blocks.
+    """
+    from wagtail.images.models import Image
+    from wagtail.models import Page
+
+    if isinstance(value, Image):
+        try:
+            return {
+                "id": value.id,
+                "title": value.title,
+                "url": value.get_rendition('original').url,
+                "alt": value.title
+            }
+        except Exception:
+            return None
+    elif isinstance(value, Page):
+        return {
+            "id": value.id,
+            "title": value.title,
+            "url": value.url if hasattr(value, 'url') else None
+        }
+    elif hasattr(value, 'items'): # StructValue or dict-like
+        return {k: serialize_block_value(v) for k, v in value.items()}
+    elif isinstance(value, (list, tuple)): # ListBlock or sequences
+        return [serialize_block_value(item) for item in value]
+    
+    # Check for iterable StreamField list values that aren't strings
+    if hasattr(value, '__iter__') and not isinstance(value, (str, bytes)):
+        try:
+            return [serialize_block_value(item) for item in value]
+        except Exception:
+            pass
+            
+    return value
 
 @csrf_exempt
 @require_http_methods(["GET"])
@@ -171,29 +209,20 @@ def home_data(request):
             "blocks": []
         }
 
-        # Simplified StreamField serialization for the frontend
+        # Advanced recursive StreamField serialization
         for block in home_page.body:
-            # Handle StructBlock values safely
-            if hasattr(block.value, 'items'):
-                value = dict(block.value)
-            else:
-                value = {"content": str(block.value)}
-
             block_data = {
                 "type": block.block_type,
-                "value": value
+                "value": serialize_block_value(block.value)
             }
             
-            # Special handling for images in blocks (Handle renditions safely)
-            if block.block_type == 'hero_banner':
-                img = value.get('background_image')
-                if img and hasattr(img, 'get_rendition'):
-                    try:
-                        block_data['value']['image_url'] = img.get_rendition('fill-1920x800').url
-                    except Exception:
-                        block_data['value']['image_url'] = None
-                else:
-                    block_data['value']['image_url'] = None
+            # Legacy/Specific fallback for hero_banner image_url if expected by frontend
+            if block.block_type == 'hero_banner' and isinstance(block_data['value'], dict):
+                if 'image_url' not in block_data['value'] and 'background_image' in block_data['value']:
+                    bg_img = block_data['value']['background_image']
+                    if isinstance(bg_img, dict) and 'url' in bg_img:
+                        block_data['value']['image_url'] = bg_img['url']
+            
             
             data["blocks"].append(block_data)
 

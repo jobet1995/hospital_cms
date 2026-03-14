@@ -21,12 +21,7 @@
         <div class="container-fluid px-lg-5 py-3">
             <a class="navbar-brand" href="{{ value.logo_link|default:'/' }}">
                 <div class="brand-logo">
-                    {% if value.logo %}
-                        {% image value.logo original as logo_img %}
-                        <img src="{{ logo_img.url }}" alt="Hospital Logo" height="50">
-                    {% else %}
-                        <div class="placeholder-logo"><i class="fas fa-hospital-symbol"></i></div>
-                    {% endif %}
+                    <img src="{% static 'images/logo.png' %}" alt="St Martin Medical Icon">
                 </div>
                 <div class="brand-text">
                     <span class="brand-name">St Martin</span>

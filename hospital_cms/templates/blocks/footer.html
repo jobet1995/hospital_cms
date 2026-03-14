@@ -8,12 +8,7 @@
                     <div class="footer-brand mb-4">
                         <a class="navbar-brand footer-logo mb-4" href="{{ value.logo_link|default:'/' }}">
                             <div class="brand-logo">
-                                {% if value.logo %}
-                                    {% image value.logo original as logo_img %}
-                                    <img src="{{ logo_img.url }}" alt="Hospital Logo" height="40">
-                                {% else %}
-                                    <div class="placeholder-logo"><i class="fas fa-hospital-symbol"></i></div>
-                                {% endif %}
+                                <img src="{% static 'images/logo.png' %}" alt="St Martin Medical Icon">
                             </div>
                             <div class="brand-text">
                                 <span class="brand-name text-white">St Martin</span>
