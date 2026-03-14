@@ -33,7 +33,8 @@
 .hero-overlay-gradient {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 100%);
+    background: radial-gradient(circle at 20% 50%, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 100%),
+                linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, transparent 100%);
     z-index: 1;
 }
 
@@ -45,24 +46,119 @@
 }
 
 .display-huge {
-    font-size: var(--fs-display);
-    font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -3px;
-    animation: slideUpFade 1.2s var(--ease-out);
+    font-size: var(--fs-display) !important;
+    font-weight: 900 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -4px !important;
+    animation: slideUpFade 1.2s var(--ease-out) !important;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    margin-bottom: 2.5rem !important; /* Enhanced spacing */
+}
+
+.hero-description {
+    font-size: var(--fs-md) !important;
+    opacity: 0.9 !important;
+    letter-spacing: -0.5px !important;
+    max-width: 600px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 3.5rem !important; /* Breathing room for CTA */
+}
+
+/* --- Premium Badge System --- */
+.hero-badge-container {
+    display: flex;
+    align-items: center;
 }
 
 .badge-premium {
-    background: var(--primary-soft);
-    color: var(--primary);
-    border: 1px solid var(--primary);
-    padding: 0.5rem 1.5rem;
-    border-radius: var(--radius-full);
-    text-transform: uppercase;
-    font-weight: 800;
-    font-size: var(--fs-xs);
-    letter-spacing: 1px;
-    display: inline-block;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(8px) !important;
+    color: var(--white) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 0.5rem 1.2rem !important;
+    border-radius: var(--radius-full) !important;
+    text-transform: uppercase !important;
+    font-weight: 800 !important;
+    font-size: 10px !important;
+    letter-spacing: 1.5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    width: fit-content;
+}
+
+.live-pulse {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    position: relative;
+}
+
+.live-pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    border-radius: inherit;
+    animation: pulseStatus 2s infinite;
+}
+
+@keyframes pulseStatus {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* --- Advanced Action Portal Button --- */
+.hero-action-portal {
+    display: inline-flex !important;
+    align-items: center !important;
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    text-decoration: none !important;
+    padding: 10px 10px 10px 35px !important;
+    border-radius: var(--radius-full) !important;
+    font-weight: 800 !important;
+    font-size: var(--fs-base) !important;
+    letter-spacing: -0.5px !important;
+    transition: all 0.4s var(--ease-out) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 15px 35px rgba(52, 152, 219, 0.4) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer !important;
+}
+
+.hero-action-portal:hover {
+    background-color: var(--primary-hover) !important;
+    transform: translateY(-5px) scale(1.02) !important;
+    box-shadow: 0 20px 45px rgba(52, 152, 219, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: var(--white) !important;
+}
+
+.hero-action-portal .cta-icon-box {
+    width: 45px !important;
+    height: 45px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: 20px !important;
+    transition: all 0.4s var(--ease-out) !important;
+}
+
+.hero-action-portal:hover .cta-icon-box {
+    background: var(--white) !important;
+    color: var(--primary) !important;
+    transform: rotate(-10deg) !important;
+}
+
+.cta-text {
+    position: relative;
+    z-index: 2;
 }
 
 /* --- 2. Advanced Card Architecture --- */

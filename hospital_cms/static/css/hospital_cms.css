@@ -29,3 +29,18 @@
 @import url('animations.css');
 @import url('ajax-loader.css');
 @import url('responsive.css');
+
+/* --- Emergency Global Fix: Hero CTA --- */
+.hero-banner-premium .hero-action-portal {
+    display: inline-flex !important;
+    align-items: center !important;
+    background-color: #3498db !important;
+    background-color: var(--primary) !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    padding: 10px 10px 10px 35px !important;
+    border-radius: 50px !important;
+    font-weight: 800 !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3) !important;
+}

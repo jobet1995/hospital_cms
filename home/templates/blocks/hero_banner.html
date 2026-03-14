@@ -10,15 +10,26 @@
         <div class="row h-100 align-items-center">
             <div class="col-lg-8">
                 <div class="hero-content">
-                    <span class="badge-premium mb-3 animate-fade-in">Clinical Excellence 24/7</span>
+                    <div class="hero-badge-container mb-4">
+                        <span class="badge-premium animate-fade-in">
+                            <span class="live-pulse"></span>
+                            Clinical Excellence 24/7
+                        </span>
+                    </div>
+                    
                     <h1 class="display-huge fw-black mb-4">{{ value.title }}</h1>
+                    
                     {% if value.subtitle %}
-                        <p class="lead fw-light mb-5">{{ value.subtitle }}</p>
+                        <p class="hero-description lead fw-light mb-5">{{ value.subtitle }}</p>
                     {% endif %}
+                    
                     {% if value.cta_button %}
                         <div class="hero-actions d-flex gap-4 animate-slide-up">
-                            <a href="{{ value.cta_button.link }}" class="btn btn-primary btn-xl rounded-pill px-5 shadow-premium">
-                                {{ value.cta_button.text }} <i class="fas fa-chevron-right ms-3"></i>
+                            <a href="{{ value.cta_button.link }}" class="hero-action-portal">
+                                <span class="cta-text">{{ value.cta_button.text }}</span>
+                                <span class="cta-icon-box">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
                             </a>
                         </div>
                     {% endif %}
