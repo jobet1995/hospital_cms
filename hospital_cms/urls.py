@@ -59,6 +59,17 @@ urlpatterns = [
     path("api/v1/departments/nephrology/", api.dept_nephrology, name="api_dept_nephrology"),
     path("api/v1/departments/hematology/", api.dept_hematology, name="api_dept_hematology"),
     path("api/v1/departments/ent-services/", api.dept_ent_services, name="api_dept_ent_services"),
+    
+    # Doctor Manifest Routes
+    path("api/v1/doctors/directory/", api.doctors_directory, name="api_doctors_directory"),
+    path("api/v1/doctors/find/", api.doctors_find, name="api_doctors_find"),
+    path("api/v1/doctors/specialty/", api.doctors_by_specialty, name="api_doctors_by_specialty"),
+    path("api/v1/doctors/department/", api.doctors_by_department, name="api_doctors_by_department"),
+    path("api/v1/doctors/featured/", api.doctors_featured, name="api_doctors_featured"),
+    path("api/v1/doctors/new/", api.doctors_new, name="api_doctors_new"),
+    path("api/v1/doctors/visiting/", api.doctors_visiting, name="api_doctors_visiting"),
+    path("api/v1/doctors/schedule/", api.doctors_schedule, name="api_doctors_schedule"),
+
     path("api/v1/home/", api.home_data, name="api_home"),
     path("api/v1/search/", api.universal_search, name="api_search"),
 ]

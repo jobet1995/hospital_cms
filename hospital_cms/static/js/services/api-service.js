@@ -170,6 +170,38 @@ class ApiService {
         return AjaxService.get(`${HospitalConfig.ENDPOINTS.DOCTORS}${id}/`);
     }
 
+    async getDoctorsDirectory() {
+        return AjaxService.get('/api/v1/doctors/directory/');
+    }
+
+    async getDoctorsFind() {
+        return AjaxService.get('/api/v1/doctors/find/');
+    }
+
+    async getDoctorsBySpecialty() {
+        return AjaxService.get('/api/v1/doctors/specialty/');
+    }
+
+    async getDoctorsByDepartment() {
+        return AjaxService.get('/api/v1/doctors/department/');
+    }
+
+    async getDoctorsFeatured() {
+        return AjaxService.get('/api/v1/doctors/featured/');
+    }
+
+    async getDoctorsNew() {
+        return AjaxService.get('/api/v1/doctors/new/');
+    }
+
+    async getDoctorsVisiting() {
+        return AjaxService.get('/api/v1/doctors/visiting/');
+    }
+
+    async getDoctorsSchedule() {
+        return AjaxService.get('/api/v1/doctors/schedule/');
+    }
+
     async getDoctorAvailability(doctorId) {
         if (!doctorId) return [];
         console.log(`%c[API]:%c Checking availability for doctor ID ${doctorId}...`, 'font-weight: bold; color: #3498db;', '');

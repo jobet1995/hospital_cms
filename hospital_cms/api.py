@@ -541,3 +541,89 @@ def dept_ent_services(request):
         "specialists": 13,
         "features": ["Hearing Solutions", "Sinus Surgery", "Voice Disorders"]
     })
+@csrf_exempt
+@require_http_methods(["GET"])
+def doctors_directory(request):
+    """Returns the main doctor directory metadata"""
+    return api_response({
+        "status": "MANIFEST_ACTIVE",
+        "total_physicians": 450,
+        "categories": ["Primary Care", "Surgery", "Consultants"],
+        "governance": "Clinical Board of Surgeons"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def doctors_find(request):
+    """Returns search/discovery metadata for physicians"""
+    return api_response({
+        "search_engine": "Real-time Clinical Discovery",
+        "filters": ["Location", "Insurance", "Specialty", "Languages"],
+        "availability_sync": "Active"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def doctors_by_specialty(request):
+    """Returns doctors grouped by medical specialty"""
+    return api_response({
+        "grouping": "Specialty Cluster",
+        "clusters": 22,
+        "lead_specialists": 15,
+        "sync_protocol": "CLINICAL_HIERARCHY_v2"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def doctors_by_department(request):
+    """Returns doctors grouped by hospital department"""
+    return api_response({
+        "grouping": "Departmental Unit",
+        "units": 22,
+        "clinical_leads": 22,
+        "operational_sync": "Active"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def doctors_featured(request):
+    """Returns featured/highlighted physicians"""
+    return api_response({
+        "highlight_type": "Clinical Excellence",
+        "featured_count": 10,
+        "rotation_period": "Monthly",
+        "selection_criteria": "Patient Satisfaction & Research"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def doctors_new(request):
+    """Returns recently joined physicians"""
+    return api_response({
+        "induction_status": "Induction Process Complete",
+        "new_recruits": 15,
+        "departments": ["Oncology", "Cardiology", "Neurology"],
+        "start_date": "2024-Q1"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def doctors_visiting(request):
+    """Returns visiting consultants metadata"""
+    return api_response({
+        "consultant_type": "International Visiting Board",
+        "nations_represented": 8,
+        "specialties": ["Neurosurgery", "Robotic Surgery", "Genetics"],
+        "manifest_sync": "Active"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def doctors_schedule(request):
+    """Returns doctor scheduling and availability metadata"""
+    return api_response({
+        "scheduler_engine": "Dynamic Clinical Alignment",
+        "realtime_availability": True,
+        "booking_integration": "AppointmentService_v4",
+        "timezone_sync": "UTC/Local"
+    })
