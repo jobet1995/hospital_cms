@@ -6,21 +6,8 @@
                 {# Brand Column #}
                 <div class="col-lg-4">
                     <div class="footer-brand mb-4">
-                        <a class="navbar-brand footer-logo mb-4" href="{{ value.logo_link|default:'/' }}">
-                            <div class="brand-logo">
-                                {% if value.logo %}
-                                    {% image value.logo original as logo_img %}
-                                    <img src="{{ logo_img.url }}" alt="Hospital Logo" height="40">
-                                {% else %}
-                                    <div class="placeholder-logo"><i class="fas fa-hospital-symbol"></i></div>
-                                {% endif %}
-                            </div>
-                            <div class="brand-text">
-                                <span class="brand-name text-white">HOSPITAL</span>
-                                <span class="brand-sub">CENTER</span>
-                            </div>
-                        </a>
-                        <p class="text-slate-400 mt-4 pe-lg-5">
+                        <div class="placeholder-logo-light mb-3"><i class="fas fa-hospital-symbol me-2"></i> HOSPITAL CMS</div>
+                        <p class="text-slate-400 pe-lg-5">
                             Pioneering excellence in medical care through innovation, compassion, and world-class expertise. We are committed to your health journey.
                         </p>
                     </div>
@@ -28,7 +15,7 @@
                         <h6 class="text-white mb-3 small text-uppercase fw-bold">Connect With Us</h6>
                         <div class="d-flex gap-2">
                             {% for social in value.social_links %}
-                                <a href="{{ social.url }}" class="social-circle" aria-label="Follow us on {{ social.platform }}">
+                                <a href="{{ social.url }}" class="social-circle">
                                     {% if social.icon %}
                                         {% image social.icon original as social_icon %}
                                         <img src="{{ social_icon.url }}" alt="{{ social.platform }}">
@@ -45,16 +32,9 @@
                 <div class="col-lg-2 col-md-4">
                     <h6 class="footer-heading">Services</h6>
                     <ul class="footer-nav">
-                        {% if value.quick_links %}
-                            {% for link in value.quick_links %}
-                                <li><a href="{{ link.url }}">{{ link.label }}</a></li>
-                            {% endfor %}
-                        {% else %}
-                            <li><a href="#">Cardiology</a></li>
-                            <li><a href="#">Neurology</a></li>
-                            <li><a href="#">Telemedicine</a></li>
-                            <li><a href="#">Research</a></li>
-                        {% endif %}
+                        {% for link in value.quick_links %}
+                            <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
 
@@ -66,21 +46,21 @@
                             <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
                             <div class="info-content">
                                 <span class="label">Emergency 24/7</span>
-                                <span class="value text-danger fw-bold">{{ value.emergency_hotline|default:"+1 800 999 0000" }}</span>
+                                <span class="value text-danger fw-bold">{{ value.emergency_hotline }}</span>
                             </div>
                         </li>
                         <li>
                             <div class="icon-box"><i class="fas fa-envelope-open-text"></i></div>
                             <div class="info-content">
                                 <span class="label">Email Address</span>
-                                <a href="mailto:{{ value.contact_info.email|default:'care@hospital.com' }}" class="value">{{ value.contact_info.email|default:'care@hospital.com' }}</a>
+                                <a href="mailto:{{ value.contact_info.email }}" class="value">{{ value.contact_info.email }}</a>
                             </div>
                         </li>
                         <li>
                             <div class="icon-box"><i class="fas fa-map-marked-alt"></i></div>
                             <div class="info-content">
                                 <span class="label">Our Location</span>
-                                <span class="value">{{ value.contact_info.address|default:'123 Health Ave, Medical District' }}</span>
+                                <span class="value">{{ value.contact_info.address }}</span>
                             </div>
                         </li>
                     </ul>
@@ -93,8 +73,8 @@
                     {% if value.newsletter_form %}
                         <div class="newsletter-premium">
                             <form class="newsletter-form position-relative">
-                                <input type="email" class="form-control" placeholder="Your email address" aria-label="Email address for newsletter">
-                                <button type="submit" class="newsletter-submit" aria-label="Subscribe to newsletter"><i class="fas fa-paper-plane"></i></button>
+                                <input type="email" class="form-control" placeholder="Your email address">
+                                <button type="submit" class="newsletter-submit"><i class="fas fa-paper-plane"></i></button>
                             </form>
                             <div class="mt-2 small text-slate-500">
                                 <i class="fas fa-shield-alt me-1"></i> We respect your privacy.

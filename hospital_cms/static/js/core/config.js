@@ -14,7 +14,8 @@ const HospitalConfig = {
         RESEARCH: '/api/v1/research/publications/',
         RESOURCES: '/api/v1/health-resources/',
         EVENTS: '/api/v1/events/',
-        FEEDBACK: '/api/v1/feedback/'
+        FEEDBACK: '/api/v1/feedback/',
+        HOME: '/api/v1/home/'
     },
     ANIMATION_SPEED: 300,
     TOAST_DURATION: 5000

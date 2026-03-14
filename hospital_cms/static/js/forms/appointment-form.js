@@ -30,8 +30,32 @@ class AppointmentFormController extends FormHandler {
     }
 
     async loadAvailableSlots(doctorId) {
-        console.log(`Loading slots for doctor ${doctorId}`);
-        // AJAX logic to fetch slots would go here
+        if (!doctorId) return;
+        
+        const $slotContainer = this.$form.find('.available-slots-container');
+        $slotContainer.html('<div class="spinner-border spinner-border-sm text-primary"></div>');
+
+        try {
+            console.log(`[BOOKING]: Fetching availability for physician ID: ${doctorId}...`);
+            const slots = await ApiService.getDoctorAvailability(doctorId);
+            
+            // Professional selection rendering
+            if (slots && slots.length > 0) {
+                let html = '<div class="btn-group gap-2 flex-wrap w-100">';
+                slots.forEach(slot => {
+                    html += `
+                        <input type="radio" class="btn-check" name="time_slot" id="slot-${slot}" value="${slot}" required>
+                        <label class="btn btn-outline-primary rounded-pill px-3" for="slot-${slot}">${slot}</label>
+                    `;
+                });
+                html += '</div>';
+                $slotContainer.html(html);
+            } else {
+                $slotContainer.html('<p class="text-muted small">No slots available for today.</p>');
+            }
+        } catch (err) {
+            $slotContainer.html('<p class="text-danger small">Error loading availability.</p>');
+        }
     }
 
     onSuccess(response) {

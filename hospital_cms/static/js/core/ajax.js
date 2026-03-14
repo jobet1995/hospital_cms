@@ -49,17 +49,36 @@ class AjaxService {
     }
 
     async post(url, data = {}) {
-        console.log(`[AJAX REQUEST] POST: ${url}`, data);
+        return this.request(url, 'POST', data);
+    }
+
+    async put(url, data = {}) {
+        return this.request(url, 'PUT', data);
+    }
+
+    async patch(url, data = {}) {
+        return this.request(url, 'PATCH', data);
+    }
+
+    async delete(url, data = {}) {
+        return this.request(url, 'DELETE', data);
+    }
+
+    /**
+     * Unified Request Handler
+     */
+    async request(url, type, data = {}) {
+        console.log(`[AJAX REQUEST] ${type}: ${url}`, data);
         try {
             const response = await $.ajax({
-                url, type: 'POST',
+                url, type,
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 dataType: 'json'
             });
-            return this.handleResponse(url, 'POST', response);
+            return this.handleResponse(url, type, response);
         } catch (xhr) {
-            throw this.handleError(url, 'POST', xhr);
+            throw this.handleError(url, type, xhr);
         }
     }
 

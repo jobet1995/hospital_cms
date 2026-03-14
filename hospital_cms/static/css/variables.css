@@ -1,70 +1,78 @@
-/* CSS Variables - Global Design Tokens */
+/* CSS Variables - Premium Design System Utilities */
 
 :root {
-    /* Core Palette (HSL for better transparency control) */
+    /* 1. Refined Palette (Medical Excellence) */
     --primary-h: 217;
     --primary-s: 91%;
-    --primary-l: 60%;
+    --primary-l: 50%; /* Slightly deeper for authority */
     
     --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
-    --primary-dark: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 10%));
-    --primary-light: hsl(var(--primary-h), var(--primary-s), 95%);
+    --primary-hover: hsl(var(--primary-h), var(--primary-s), 40%);
+    --primary-soft: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
     
     --secondary-h: 162;
     --secondary-s: 73%;
-    --secondary-l: 46%;
+    --secondary-l: 40%;
     
     --secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
-    --secondary-dark: hsl(var(--secondary-h), var(--secondary-s), 35%);
-    --secondary-light: hsl(var(--secondary-h), var(--secondary-s), 95%);
+    --secondary-soft: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.1);
     
-    --emergency: hsl(354, 70%, 54%);
-    --emergency-dark: hsl(354, 70%, 45%);
+    --emergency: hsl(0, 84%, 60%);
+    --emergency-glow: hsla(0, 84%, 60%, 0.3);
     
-    /* Neutral / Grayscale */
+    /* 2. Neutral Depth */
     --slate-50: #f8fafc;
     --slate-100: #f1f5f9;
     --slate-200: #e2e8f0;
-    --slate-300: #cbd5e1;
-    --slate-400: #94a3b8;
     --slate-500: #64748b;
-    --slate-600: #475569;
-    --slate-700: #334155;
     --slate-800: #1e293b;
-    --slate-900: #0f172a;
+    --slate-950: #020617; /* Deeper darks */
     
-    --text-main: var(--slate-800);
-    --text-muted: var(--slate-500);
     --white: #ffffff;
+    --glass-white: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.4);
     
-    /* Glassmorphism Tokens */
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.3);
-    --glass-blur: 15px;
+    /* 3. Fluid Typography (Boutique Type System) */
+    --font-main: "Inter", system-ui, sans-serif;
+    --font-heading: "Outfit", sans-serif;
     
-    /* Typography */
-    --font-main: "Inter", "Outfit", system-ui, -apple-system, sans-serif;
-    --font-heading: "Outfit", "Inter", sans-serif;
+    /* Fluid scale using clamp(min, pref, max) */
+    --fs-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    --fs-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+    --fs-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    --fs-md: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+    --fs-lg: clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
+    --fs-xl: clamp(2.25rem, 2rem + 1.5vw, 4rem);
+    --fs-display: clamp(3rem, 2.5rem + 3vw, 6rem);
     
-    /* Spacing & Layout */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2.5rem;
-    --spacing-xl: 4rem;
+    /* 4. Elevation (Shadows 2.0 - Multi-layered for realism) */
+    --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+    --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    --shadow-premium: 
+        0 1px 2px rgba(0,0,0,0.02), 
+        0 4px 8px rgba(0,0,0,0.02), 
+        0 12px 24px rgba(0,0,0,0.03), 
+        0 32px 64px rgba(0,0,0,0.03);
     
-    /* Effects */
+    /* 5. Layout & Shapes */
     --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1.25rem;
+    --radius-md: 1rem;
+    --radius-lg: 2rem;
     --radius-full: 9999px;
     
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-premium: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+    --container-max: 1320px;
     
-    /* Transitions */
-    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 6. Precision Transitions */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* Apple-style ease out */
+    --transition-premium: all 0.6s var(--ease-out);
+
+    /* 7. Specialized Optical Tokens (Navbar 2.0) */
+    --glass-blur: 15px;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-edge: rgba(255, 255, 255, 0.5);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
+    
+    --brand-ratio: 1.1; /* Optical balance for logos */
+    --nav-height: 80px;
+    --nav-height-scrolled: 65px;
 }

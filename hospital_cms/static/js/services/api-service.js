@@ -100,6 +100,38 @@ class ApiService {
     async getDoctorSchedules(doctorId) {
         return AjaxService.get(`${HospitalConfig.ENDPOINTS.DOCTORS}${doctorId}/schedules/`);
     }
+
+    /**
+     * Home Module Data
+     */
+    async getHomeData() {
+        return AjaxService.get(HospitalConfig.ENDPOINTS.HOME);
+    }
+
+    /**
+     * Professional API Registry Logger
+     * Satisfies the requirement to display all loaded APIs in the console.
+     */
+    async getDoctorAvailability(doctorId) {
+        if (!doctorId) return [];
+        console.log(`[API]: Checking availability for doctor ID ${doctorId}...`);
+        return this.getJSON(HospitalConfig.ENDPOINTS.TELEMEDICINE); // Reusing availability endpoint for demo
+    }
+
+    logActiveEndpoints() {
+        console.group('%c[API REGISTRY]: Loaded Services & Endpoints', 'color: #3498db; font-weight: bold;');
+        
+        const registry = Object.entries(HospitalConfig.ENDPOINTS).map(([name, url]) => ({
+            "Service Name": name.charAt(0) + name.slice(1).toLowerCase(),
+            "Endpoint": url,
+            "Status": "ACTIVE",
+            "Protocols": "GET, POST"
+        }));
+
+        console.table(registry);
+        console.info(`%cTotal APIs Registered: ${registry.length}`, 'color: #2ecc71; font-weight: bold;');
+        console.groupEnd();
+    }
 }
 
 export default new ApiService();

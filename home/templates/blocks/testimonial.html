@@ -1,0 +1,28 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="testimonial-boutique-card">
+    <div class="testimonial-accent-quote"><i class="fas fa-quote-left"></i></div>
+    <div class="testimonial-stars mb-4 text-center">
+        {% with ""|center:value.rating as range %}
+        {% for _ in range %}
+            <i class="fas fa-star text-warning"></i>
+        {% endfor %}
+        {% endwith %}
+    </div>
+    <div class="testimonial-content-text fst-italic text-center mb-5">
+        {{ value.testimonial_text|richtext }}
+    </div>
+    <div class="testimonial-patient-profile d-flex align-items-center justify-content-center">
+        <div class="patient-avatar-ring me-3">
+            {% if value.photo %}
+                {% image value.photo fill-120x120 as p_photo %}
+                <img src="{{ p_photo.url }}" alt="{{ value.patient_name }}">
+            {% else %}
+                <div class="patient-placeholder"><i class="fas fa-user"></i></div>
+            {% endif %}
+        </div>
+        <div class="patient-info-meta">
+            <h6 class="mb-0 fw-black">{{ value.patient_name }}</h6>
+            <small class="text-secondary-dark fw-bold">Verified Patient</small>
+        </div>
+    </div>
+</div>

@@ -14,6 +14,7 @@ class HeroBannerBlock(blocks.StructBlock):
     class Meta:
         icon = 'image'
         label = 'Hero Banner'
+        template = 'blocks/hero_banner.html'
 
 
 class DepartmentCardBlock(blocks.StructBlock):
@@ -25,6 +26,7 @@ class DepartmentCardBlock(blocks.StructBlock):
     class Meta:
         icon = 'folder'
         label = 'Department Card'
+        template = 'blocks/department_card.html'
 
 
 class DoctorCardBlock(blocks.StructBlock):
@@ -36,6 +38,7 @@ class DoctorCardBlock(blocks.StructBlock):
     class Meta:
         icon = 'user'
         label = 'Doctor Card'
+        template = 'blocks/doctor_card.html'
 
 
 class TipBlock(blocks.StructBlock):
@@ -46,6 +49,7 @@ class TipBlock(blocks.StructBlock):
     class Meta:
         icon = 'help'
         label = 'Health Tip'
+        template = 'blocks/health_tip.html'
 
 
 class NewsCardBlock(blocks.StructBlock):
@@ -57,6 +61,7 @@ class NewsCardBlock(blocks.StructBlock):
     class Meta:
         icon = 'doc-full'
         label = 'News Card'
+        template = 'blocks/news_card.html'
 
 
 class EmergencyBannerBlock(blocks.StructBlock):
@@ -72,6 +77,7 @@ class EmergencyBannerBlock(blocks.StructBlock):
     class Meta:
         icon = 'warning'
         label = 'Emergency Banner'
+        template = 'blocks/emergency_banner.html'
 
 
 class TestimonialBlock(blocks.StructBlock):
@@ -83,6 +89,7 @@ class TestimonialBlock(blocks.StructBlock):
     class Meta:
         icon = 'comment'
         label = 'Testimonial'
+        template = 'blocks/testimonial.html'
 
 
 class QuickLinkBlock(blocks.StructBlock):
@@ -93,6 +100,7 @@ class QuickLinkBlock(blocks.StructBlock):
     class Meta:
         icon = 'link'
         label = 'Quick Link'
+        template = 'blocks/quick_link.html'
 
 
 class NavLinkBlock(blocks.StructBlock):

@@ -1,0 +1,15 @@
+<div class="news-card-platinum">
+    <div class="news-meta-vertical">
+        <span class="news-day-big">{{ value.date|date:"d" }}</span>
+        <span class="news-month-accent">{{ value.date|date:"M" }}</span>
+    </div>
+    <div class="news-details">
+        <h5 class="news-headline-premium mb-3">{{ value.headline }}</h5>
+        <p class="news-excerpt mb-4">{{ value.summary }}</p>
+        {% if value.link %}
+            <a href="{{ value.link }}" class="news-read-action">
+                Read Detailed Analysis <i class="fas fa-chevron-right ms-2"></i>
+            </a>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,22 @@
+{% load wagtailimages_tags %}
+<div class="doctor-card-advanced shadow-premium">
+    <div class="doctor-portrait-area">
+        <div class="doctor-photo-halo">
+            {% if value.photo %}
+                {% image value.photo fill-400x400 as doc_photo %}
+                <img src="{{ doc_photo.url }}" alt="{{ value.name }}" class="doctor-portrait-img">
+            {% else %}
+                <div class="doctor-portrait-placeholder"><i class="fas fa-user-md"></i></div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="doctor-info-glass p-4 mt-n4 position-relative z-index-2">
+        <h5 class="doctor-name-premium mb-1">{{ value.name }}</h5>
+        <span class="doctor-specialty-tag mb-3 d-inline-block">{{ value.specialty }}</span>
+        {% if value.link %}
+            <div class="doctor-action mt-3">
+                <a href="{{ value.link }}" class="btn btn-primary btn-sm rounded-pill px-4">Book Consultation</a>
+            </div>
+        {% endif %}
+    </div>
+</div>

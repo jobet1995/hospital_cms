@@ -1,0 +1,15 @@
+{% load wagtailimages_tags %}
+<div class="tip-card-advanced">
+    <div class="tip-icon-floating-inner">
+        {% if value.icon %}
+            {% image value.icon original as tip_icon %}
+            <img src="{{ tip_icon.url }}" alt="Health Tip">
+        {% else %}
+            <i class="fas fa-hand-holding-medical"></i>
+        {% endif %}
+    </div>
+    <div class="tip-content">
+        <h5 class="tip-heading-premium mb-2">{{ value.title }}</h5>
+        <p class="tip-text-muted mb-0">{{ value.description }}</p>
+    </div>
+</div>

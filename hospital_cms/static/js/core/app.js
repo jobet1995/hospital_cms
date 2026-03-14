@@ -13,7 +13,7 @@ import CarouselComponent from '../components/carousel.js';
 import TabsComponent from '../components/tabs.js';
 
 // Modules
-import HomepageController from '../modules/homepage.js';
+import HomepageController from '../homepage.js';
 import DoctorsController from '../modules/doctors.js';
 import DepartmentsController from '../modules/departments.js';
 import AppointmentsModule from '../modules/appointments.js';
@@ -26,20 +26,15 @@ import ContactController from '../modules/contact.js';
 
 class HospitalApp {
     constructor() {
-        this.controllers = {};
+        this.version = '1.0.0';
     }
 
     init() {
-        console.log('Hospital CMS App Initializing...');
-        
-        this.initComponents();
-        this.initModules();
-        
-        // Final verification check for the user
+        console.log('Hospital CMS Core Infrastructure Ready.');
         this.runSystemCheck();
-        
-        console.log('Hospital CMS App Ready.');
     }
+    
+    // ... runSystemCheck implementation remains the same ...
 
     /**
      * Professional Verification Check
@@ -74,29 +69,41 @@ class HospitalApp {
         this.controllers.carousel = new CarouselComponent();
         this.controllers.tabs = new TabsComponent();
         
+        // Register back to global manifest for transparency
+        if (window.HospitalCMS) {
+            window.HospitalCMS.Instances.Components = this.controllers;
+        }
+
         Object.values(this.controllers).forEach(c => {
             if (typeof c.init === 'function') c.init();
         });
     }
 
     initModules() {
-        this.controllers.homepage = new HomepageController();
-        this.controllers.doctors = new DoctorsController();
-        this.controllers.departments = new DepartmentsController();
-        this.controllers.appointments = new AppointmentsModule();
-        this.controllers.telemedicine = new TelemedicineController();
-        this.controllers.research = new ResearchController();
-        this.controllers.resources = new ResourcesController();
-        this.controllers.events = new EventsController();
-        this.controllers.feedback = new FeedbackController();
-        this.controllers.contact = new ContactController();
+        // Feature modules
+        const modules = {
+            homepage: new HomepageController(),
+            doctors: new DoctorsController(),
+            departments: new DepartmentsController(),
+            appointments: new AppointmentsModule(),
+            telemedicine: new TelemedicineController(),
+            research: new ResearchController(),
+            resources: new ResourcesController(),
+            events: new EventsController(),
+            feedback: new FeedbackController(),
+            contact: new ContactController()
+        };
 
-        // Initialize all feature modules
-        Object.values(this.controllers).forEach(c => {
+        // Register back to global manifest
+        if (window.HospitalCMS) {
+            window.HospitalCMS.Instances.Modules = modules;
+        }
+
+        Object.values(modules).forEach(c => {
             if (typeof c.init === 'function') c.init();
         });
     }
 }
 
-// Global initialization is now handled in hospital_cms.js
+// Global initialization logic removed from here as it's in hospital_cms.js
 export default HospitalApp;

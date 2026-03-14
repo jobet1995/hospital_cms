@@ -1,41 +1,94 @@
 /**
- * Navbar Controller - Handles mobile menu, dropdowns, and sticky header
+ * Navbar Controller - Premium Boutique Medical Edition
+ * Handles high-end scroll reactions, glassmorphism state shifts, and micro-interactions.
  */
 class NavbarController {
     constructor() {
         this.$wrapper = $('.header-wrapper');
         this.$navbar = $('.main-nav');
-        this.$toggler = $('.custom-toggler');
+        this.$collapse = $('#navbarNav');
         this.$searchTrigger = $('#searchTrigger');
+        this.lastScroll = 0;
+        this.ticking = false;
     }
 
     init() {
         if (this.$wrapper.length === 0) return;
+        
         this.bindEvents();
         this.handleSticky();
-        console.log('[NAVBAR]: Controller Initialized');
+        
+        console.log('%c[NAVBAR]: Premium Controller Active', 'color: #3b82f6; font-weight: bold;');
     }
 
     bindEvents() {
-        // Sticky scroll event with throttle
+        // High-performance scroll listener
         $(window).on('scroll', () => {
-            requestAnimationFrame(() => this.handleSticky());
+            this.handleScrollUpdate();
         });
 
-        // Search Trigger (Placeholder for expansion logic)
-        this.$searchTrigger.on('click', () => {
-            console.log('[NAVBAR]: Search overlay would expand here');
-            // Logic for a sleek search overlay could go here
+        // Search Trigger Logic
+        this.$searchTrigger.on('click', (e) => {
+            e.preventDefault();
+            this.toggleSearch();
+        });
+
+        // Professional Mobile Toggler & Overlay Logic
+        $('.navbar-toggler').on('click', () => {
+            console.log('[NAVBAR]: Toggler clicked. Manual state shift...');
+            this.$collapse.collapse('toggle');
+        });
+
+        this.$collapse.on('show.bs.collapse', () => {
+            $('body').addClass('mobile-menu-active');
+            this.$wrapper.addClass('drawer-open');
+        });
+
+        this.$collapse.on('hide.bs.collapse', () => {
+            $('body').removeClass('mobile-menu-active');
+            this.$wrapper.removeClass('drawer-open');
+        });
+
+        // Close menu on link click (important for SPAs or single-page feel)
+        this.$collapse.find('.nav-link').on('click', () => {
+            if (window.innerWidth < 992) {
+                this.$collapse.collapse('hide');
+            }
         });
     }
 
-    handleSticky() {
-        const scrollTop = $(window).scrollTop();
-        if (scrollTop > 80) {
-            this.$wrapper.addClass('header-scrolled');
-        } else {
-            this.$wrapper.removeClass('header-scrolled');
+    handleScrollUpdate() {
+        if (!this.ticking) {
+            window.requestAnimationFrame(() => {
+                this.handleSticky();
+                this.ticking = false;
+            });
+            this.ticking = true;
         }
+    }
+
+    handleSticky() {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Scrolled state - Trigger earlier for better feedback
+        if (currentScroll > 10) {
+            if (!this.$wrapper.hasClass('header-scrolled')) {
+                this.$wrapper.addClass('header-scrolled');
+            }
+        } else {
+            if (this.$wrapper.hasClass('header-scrolled')) {
+                this.$wrapper.removeClass('header-scrolled');
+            }
+        }
+
+        this.lastScroll = currentScroll;
+    }
+
+    toggleSearch() {
+        // Placeholder for advanced search overlay logic
+        // In a full implementation, this might trigger a dedicated SearchService
+        console.log('[NAVBAR]: Search Overlay Expanding...');
+        $('body').addClass('search-overlay-active');
     }
 }
 

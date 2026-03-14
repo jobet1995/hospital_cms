@@ -26,6 +26,8 @@ urlpatterns = [
     path("api/v1/events/", api.events_list, name="api_events"),
     path("api/v1/feedback/", api.feedback_submit, name="api_feedback"),
     path("api/v1/newsletter/subscribe/", api.newsletter_subscribe, name="api_newsletter"),
+    path("api/v1/emergency-alerts/", api.emergency_alerts, name="api_emergency"),
+    path("api/v1/home/", api.home_data, name="api_home"),
     path("api/v1/search/", api.universal_search, name="api_search"),
 ]
 

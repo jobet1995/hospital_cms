@@ -1,0 +1,23 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="dept-card animate-premium">
+    <div class="dept-image-wrapper">
+        {% if value.image %}
+            {% image value.image fill-1000x800 as dept_img %}
+            <img src="{{ dept_img.url }}" alt="{{ value.name }}" class="dept-img-scale">
+        {% endif %}
+        <div class="dept-overlay-glass d-flex align-items-center justify-content-center">
+            <span class="btn btn-outline-light rounded-pill px-4">Learn More <i class="fas fa-chevron-right ms-2"></i></span>
+        </div>
+    </div>
+    <div class="dept-content-premium p-4 p-xl-5">
+        <h4 class="dept-title-modern mb-3">{{ value.name }}</h4>
+        <div class="dept-description-text mb-4 text-muted">
+            {{ value.description|richtext }}
+        </div>
+        {% if value.link %}
+            <a href="{{ value.link }}" class="dept-action-link fw-bold text-primary text-decoration-none">
+                View Specialized Services <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        {% endif %}
+    </div>
+</div>

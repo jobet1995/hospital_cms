@@ -114,7 +114,16 @@ class FormHandler {
             const $field = this.$form.find(`[name="${name}"]`);
             this.toggleFieldError($field, errors[name]);
         });
+        
         NotificationService.error('Please correct the errors in the form.');
+
+        // Smooth scroll to first error
+        const $firstError = this.$form.find('.is-invalid').first();
+        if ($firstError.length) {
+            $('html, body').animate({
+                scrollTop: $firstError.offset().top - 150
+            }, 600);
+        }
     }
 
     setLoading(isLoading) {

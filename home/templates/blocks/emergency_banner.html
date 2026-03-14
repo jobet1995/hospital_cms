@@ -1,0 +1,26 @@
+{% load wagtailimages_tags %}
+<div class="emergency-centerpiece-banner urgency-{{ value.urgency_level }}">
+    <div class="container py-4">
+        <div class="emergency-flex-layout d-flex align-items-center justify-content-between flex-wrap gap-4">
+            <div class="emergency-message-block d-flex align-items-center">
+                <div class="emergency-icon-container me-4">
+                    {% if value.icon %}
+                        {% image value.icon original as em_icon %}
+                        <img src="{{ em_icon.url }}" alt="Emergency">
+                    {% else %}
+                        <i class="fas fa-radiation-alt"></i>
+                    {% endif %}
+                </div>
+                <div class="emergency-copy">
+                    <span class="urgency-status-badge mb-1 d-inline-block">{{ value.urgency_level|upper }} PRIORITY</span>
+                    <h4 class="mb-0 fw-bold">{{ value.message }}</h4>
+                </div>
+            </div>
+            {% if value.link %}
+                <a href="{{ value.link }}" class="btn btn-outline-light btn-lg rounded-pill px-5">
+                    View Live Updates
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

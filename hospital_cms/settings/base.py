@@ -185,3 +185,7 @@ WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'tx
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Accessibility settings
+# Disable automatic axe checks to clean up console for the user
+WAGTAIL_ACCESSIBILITY_CHECK_RUN_ON_LOAD = False

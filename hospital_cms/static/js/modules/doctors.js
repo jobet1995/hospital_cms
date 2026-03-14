@@ -1,10 +1,13 @@
 /**
  * Doctors Module - Profile and schedule interactions
  */
+import ApiService from '../services/api-service.js';
+
 class DoctorsController {
     init() {
-        console.log('Doctors module initialized');
+        console.log('[DOCTORS]: Initializing clinical staff module...');
         this.bindEvents();
+        this.fetchDoctorsSummary();
     }
 
     bindEvents() {
@@ -12,6 +15,18 @@ class DoctorsController {
             const doctorId = $(e.currentTarget).data('doctor-id');
             this.showSchedule(doctorId);
         });
+    }
+
+    async fetchDoctorsSummary() {
+        try {
+            console.log('[DOCTORS]: Fetching dynamic clinical staff data...');
+            const doctors = await ApiService.getDoctors();
+            if (doctors) {
+                console.log('[DOCTORS]: Staff summary loaded successfully.', doctors);
+            }
+        } catch (err) {
+            console.warn('[DOCTORS]: Staff sync deferred.', err);
+        }
     }
 
     showSchedule(doctorId) {

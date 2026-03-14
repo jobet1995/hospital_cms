@@ -36,7 +36,7 @@ import FeedbackFormController from './forms/feedback-form.js';
 import NewsletterFormController from './forms/newsletter-form.js';
 
 // Specialized Feature Modules
-import HomepageController from './modules/homepage.js';
+import HomepageController from './homepage.js';
 import DoctorsController from './modules/doctors.js';
 import DepartmentsController from './modules/departments.js';
 import AppointmentsModule from './modules/appointments.js';
@@ -85,7 +85,9 @@ const HospitalCMS = {
         Events: EventsController,
         Feedback: FeedbackController,
         Contact: ContactController
-    }
+    },
+    // Registry for active instances
+    Instances: {}
 };
 
 // Expose to window for advanced debugging and script extension
@@ -97,19 +99,75 @@ window.HospitalCMS = HospitalCMS;
 $(document).ready(() => {
     console.log('%c[HOSPITAL CMS]: System Initializing...', 'background: #222; color: #bada55; font-size: 14px; padding: 4px;');
     
-    // Log complete manifest for verification
-    console.log('[MANIFEST]: Active Modules:', Object.keys(HospitalCMS.Modules));
-    console.log('[MANIFEST]: Core Services:', Object.keys(HospitalCMS.Services));
-    console.log('[MANIFEST]: UI Components:', Object.keys(HospitalCMS.Components));
-
-    // Initialize the primary application controller
+    // 1. Initialize core application
     const app = new HospitalApp();
-    app.init();
+    window.HospitalApp = app;
+
+    // 2. DETECT PAGE MODULE & PRIORITIZE (Requirement: Current Page JS/API must be first)
+    const pathname = window.location.pathname;
+    const isHomePage = $('body').hasClass('home-page-template') || $('.hero-banner-premium').length > 0 || pathname === '/';
     
-    // Expose app instance globally
-    window.HospitalApp = app; 
+    // Page detection mapping
+    const moduleMap = {
+        'doctors': pathname.includes('/doctors'),
+        'departments': pathname.includes('/departments'),
+        'research': pathname.includes('/research') || pathname.includes('/publications')
+    };
+
+    HospitalCMS.Instances.Modules = HospitalCMS.Instances.Modules || {};
+
+    if (isHomePage) {
+        console.log('[ORCHESTRATION]: Homepage detected. Prioritizing Home Module...');
+        HospitalCMS.Instances.Modules.homepage = new HomepageController();
+        HospitalCMS.Instances.Modules.homepage.init();
+    } else {
+        // Priority detection for other major pages
+        const activeModuleName = Object.keys(moduleMap).find(key => moduleMap[key]);
+        if (activeModuleName) {
+            console.log(`[ORCHESTRATION]: ${activeModuleName.toUpperCase()} page detected. Prioritizing Module...`);
+            const Controller = activeModuleName === 'doctors' ? DoctorsController : 
+                               activeModuleName === 'departments' ? DepartmentsController : ResearchController;
+            
+            HospitalCMS.Instances.Modules[activeModuleName] = new Controller();
+            HospitalCMS.Instances.Modules[activeModuleName].init();
+        }
+    }
+
+    // 3. Initialize global components
+    console.log('[ORCHESTRATION]: Initializing Global Components...');
+    HospitalCMS.Instances.Navbar = new NavbarController();
+    HospitalCMS.Instances.Footer = new FooterController();
     
-    console.log('%c[HOSPITAL CMS]: System Ready & Integrated. All 28 modules registered.', 'background: #222; color: #00ff00; font-size: 14px; padding: 4px;');
+    HospitalCMS.Instances.Navbar.init();
+    HospitalCMS.Instances.Footer.init();
+
+    // 4. Initialize remaining feature modules
+    console.log('[ORCHESTRATION]: Initializing Remaining Feature Modules...');
+    const allModules = {
+        homepage: HomepageController,
+        doctors: DoctorsController,
+        departments: DepartmentsController,
+        appointments: AppointmentsModule,
+        telemedicine: TelemedicineController,
+        research: ResearchController,
+        resources: ResourcesController,
+        events: EventsController,
+        feedback: FeedbackController,
+        contact: ContactController
+    };
+
+    Object.entries(allModules).forEach(([name, Controller]) => {
+        // Only initialize if not already prioritized
+        if (!HospitalCMS.Instances.Modules[name]) {
+            HospitalCMS.Instances.Modules[name] = new Controller();
+            HospitalCMS.Instances.Modules[name].init();
+        }
+    });
+
+    // 5. Final Registry Log (Requirement: Display all loaded APIs)
+    ApiService.logActiveEndpoints();
+
+    console.log('%c[HOSPITAL CMS]: System Ready & Integrated.', 'background: #222; color: #00ff00; font-size: 14px; padding: 4px;');
 });
 
 export default HospitalCMS;
