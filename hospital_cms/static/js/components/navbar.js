@@ -39,6 +39,22 @@ class NavbarController {
             this.$collapse.collapse('toggle');
         });
 
+        // About Pillar Engagement Trigger
+        $('#nav-about').on('click', (e) => {
+            console.log('[NAVBAR]: About Engagement Detected. Syncing Corporate Intelligence...');
+            if (window.HospitalCMS && window.HospitalCMS.Instances.Modules.about) {
+                window.HospitalCMS.Instances.Modules.about.fetchAboutData();
+            }
+        });
+
+        // Departments Pillar Engagement Trigger
+        $('#nav-depts').on('click', (e) => {
+            console.log('[NAVBAR]: Departments Engagement Detected. Syncing Clinical Intelligence...');
+            if (window.HospitalCMS && window.HospitalCMS.Instances.Modules.departments) {
+                window.HospitalCMS.Instances.Modules.departments.fetchDepartmentsData();
+            }
+        });
+
         this.$collapse.on('show.bs.collapse', () => {
             $('body').addClass('mobile-menu-active');
             this.$wrapper.addClass('drawer-open');

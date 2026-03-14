@@ -38,6 +38,10 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
+        {# Global AJAX Progress Indicators #}
+        <div id="ajax-progress" class="ajax-progress-bar"></div>
+        <div id="ajax-spinner" class="ajax-spinner"></div>
+
         {% wagtailuserbar %}
 
         {% get_settings %}

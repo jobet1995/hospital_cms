@@ -109,7 +109,8 @@ class NavLinkBlock(blocks.StructBlock):
     sub_links = blocks.ListBlock(
         blocks.StructBlock([
             ("label", blocks.CharBlock(required=True)),
-            ("url", blocks.URLBlock(required=True))
+            ("url", blocks.URLBlock(required=True)),
+            ("description", blocks.CharBlock(required=False, help_text="Short description for mega-menu"))
         ]), required=False, help_text="Sub-links for dropdown"
     )
 

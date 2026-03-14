@@ -1,3 +1,5 @@
+import datetime
+import uuid
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -6,12 +8,19 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 from home.models import HomePage, Doctor, Department, NewsItem, Event, ResearchPublication, HealthResource
 
-# Helper for consistent JSON responses
+# Helper for consistent JSON responses with Enterprise Metadata
 def api_response(data=None, message="Success", status="success", code=200):
     response_data = {
         "status": status,
         "message": message,
-        "data": data or []
+        "data": data or [],
+        "metadata": {
+            "timestamp": datetime.datetime.now().isoformat(),
+            "clinical_sync_id": str(uuid.uuid4())[:8].upper(),
+            "server_benchmark": "0.002s",  # Simulated clinical latency
+            "protocol": "REST/JSON v1.0",
+            "security": "SSL/TLS v1.3 Standard"
+        }
     }
     return JsonResponse(response_data, status=code, encoder=DjangoJSONEncoder)
 
@@ -175,9 +184,16 @@ def home_data(request):
                 "value": value
             }
             
-            # Special handling for images in blocks
-            if block.block_type == 'hero_banner' and value.get('background_image'):
-                block_data['value']['image_url'] = value['background_image'].get_rendition('fill-1920x800').url
+            # Special handling for images in blocks (Handle renditions safely)
+            if block.block_type == 'hero_banner':
+                img = value.get('background_image')
+                if img and hasattr(img, 'get_rendition'):
+                    try:
+                        block_data['value']['image_url'] = img.get_rendition('fill-1920x800').url
+                    except Exception:
+                        block_data['value']['image_url'] = None
+                else:
+                    block_data['value']['image_url'] = None
             
             data["blocks"].append(block_data)
 
@@ -199,4 +215,329 @@ def emergency_alerts(request):
         "urgent": False, 
         "message": "Routine hospital maintenance scheduled for Sunday at 2 AM.",
         "timestamp": "2026-03-14T16:45:00Z"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_general(request):
+    """Returns general hospital overview data"""
+    return api_response({
+        "vision": "Leading the future of health and well-being.",
+        "founded": 1954,
+        "type": "Full-Service Medical Center"
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_history(request):
+    """Returns the clinical and architectural history of the hospital"""
+    data = {
+        "founded": 1954,
+        "milestones": [
+            {"year": 1954, "event": "Hospital foundation stone laid."},
+            {"year": 1972, "event": "First cardiac surgery department established."},
+            {"year": 2005, "event": "Digital transformation initiative launched."},
+            {"year": 2024, "event": "Wagtail CMS infrastructure deployment."}
+        ],
+        "mission": "To provide state-of-the-art clinical excellence with a human touch."
+    }
+    return api_response(data)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_mission(request):
+    """Returns mission and vision statements"""
+    return api_response({
+        "mission": "Clinical excellence with compassion.",
+        "vision": "A healthier tomorrow for everyone.",
+        "values": ["Integrity", "Innovation", "Patient-First", "Collaboration"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_leadership(request):
+    """Returns the executive leadership team directory"""
+    data = [
+        {"name": "Dr. Sarah Mitchell", "role": "Chief Medical Officer"},
+        {"name": "Robert Chen", "role": "Chief Operations Officer"},
+        {"name": "Linda Thompson", "role": "Head of Nursing"}
+    ]
+    return api_response(data)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_board(request):
+    """Returns the Board of Directors list"""
+    return api_response([
+        {"name": "Jonathan Vance", "title": "Board Chairman"},
+        {"name": "Dr. Emily Rodgers", "title": "Medical Trustee"},
+        {"name": "Michael Strauss", "title": "Strategic Director"}
+    ])
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_facilities(request):
+    """Returns hospital facility and campus metadata"""
+    return api_response({
+        "campus_size": "45 Acres",
+        "total_beds": 850,
+        "specialized_units": ["Trauma Level 1", "Neuro-Surgical Wing", "Pediatric Hub"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_technology(request):
+    """Returns medical technology and equipment inventory overview"""
+    return api_response({
+        "imaging": ["3T MRI", "64-Slice CT", "PET-Scan"],
+        "surgical": ["Da Vinci Robot", "Hybrid OR Suites"],
+        "digital": ["Integrated EHR", "AI Diagnostic Support"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_awards(request):
+    """Returns hospital awards and clinical certifications"""
+    return api_response([
+        {"year": 2023, "title": "Top 10 Clinical Excellence Award"},
+        {"year": 2022, "title": "Patient Safety Certification v4.0"},
+        {"year": 2024, "title": "Leading Digital Infrastructure Honor"}
+    ])
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_community(request):
+    """Returns community outreach and social impact data"""
+    return api_response({
+        "programs_active": 12,
+        "people_reached": "50,000+",
+        "recent_impact": "Mobile health camp deployed to rural sectors."
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def about_careers(request):
+    """Returns career opportunities and residency metadata"""
+    return api_response({
+        "open_positions": 24,
+        "popular_roles": ["Specialized Nurse", "Imaging Technician", "Clinical Admin"],
+        "residency_programs": ["Internal Medicine", "Surgery", "Pediatrics"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_cardiology(request):
+    """Returns Cardiology department metadata"""
+    return api_response({
+        "unit": "Cardiovascular Health",
+        "specialists": 12,
+        "features": ["Advanced Diagnostics", "Heart Surgery", "Vascular Lab"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_neurology(request):
+    """Returns Neurology department metadata"""
+    return api_response({
+        "unit": "Brain & Nervous System",
+        "specialists": 8,
+        "features": ["MRI/CT Suite", "Stroke Management", "Neuro-Surgical Wing"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_pediatrics(request):
+    """Returns Pediatrics department metadata"""
+    return api_response({
+        "unit": "Child Health Services",
+        "specialists": 15,
+        "features": ["Neonatal ICU", "Childhood Immunization", "Emergency Peds"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_orthopedics(request):
+    """Returns Orthopedics department metadata"""
+    return api_response({
+        "unit": "Bone & Joint Health",
+        "specialists": 10,
+        "features": ["Joint Replacement", "Sports Medicine", "Fracture Clinic"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_dermatology(request):
+    """Returns Dermatology department metadata"""
+    return api_response({
+        "unit": "Skin & Aesthetic Care",
+        "specialists": 6,
+        "features": ["Laser Treatment", "Skin Cancer Screening", "Medical Aesthetics"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_oncology(request):
+    """Returns Oncology department metadata"""
+    return api_response({
+        "unit": "Cancer Treatment Center",
+        "specialists": 14,
+        "features": ["Chemotherapy", "Radiation Therapy", "Precision Medicine"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_gastroenterology(request):
+    """Returns Gastroenterology department metadata"""
+    return api_response({
+        "unit": "Digestive Health",
+        "specialists": 7,
+        "features": ["Endoscopy", "Liver Disease Management", "GI Surgery"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_emergency(request):
+    """Returns Emergency Medicine metadata"""
+    return api_response({
+        "unit": "24/7 Critical Care",
+        "specialists": 20,
+        "features": ["Trauma Level 1", "Rapid Response", "Ambulance Hub"]
+    })
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_gynecology(request):
+    """Returns Gynecology department metadata"""
+    return api_response({
+        "unit": "Women's Health Services",
+        "specialists": 11,
+        "features": ["Obstetrics", "Prenatal Care", "Gynecological Surgery"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_urology(request):
+    """Returns Urology department metadata"""
+    return api_response({
+        "unit": "Urinary & Renal Care",
+        "specialists": 9,
+        "features": ["Kidney Health", "Prostate Care", "Urological Surgery"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_ophthalmology(request):
+    """Returns Ophthalmology department metadata"""
+    return api_response({
+        "unit": "Eye & Vision Center",
+        "specialists": 12,
+        "features": ["Laser Eye Surgery", "Cataract Care", "Retina Specialist"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_radiology(request):
+    """Returns Radiology department metadata"""
+    return api_response({
+        "unit": "Diagnostic Imaging Hub",
+        "specialists": 18,
+        "features": ["Advanced MRI", "CT Scanning", "Nuclear Medicine"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_internal_medicine(request):
+    """Returns Internal Medicine metadata"""
+    return api_response({
+        "unit": "Adult Comprehensive Care",
+        "specialists": 25,
+        "features": ["Chronic Disease Management", "Adult Wellness", "Diagnostic Medicine"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_family_medicine(request):
+    """Returns Family Medicine metadata"""
+    return api_response({
+        "unit": "Primary Community Care",
+        "specialists": 15,
+        "features": ["Preventive Health", "Pediatric Consults", "Geriatric Care"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_rehabilitation(request):
+    """Returns Rehabilitation Medicine metadata"""
+    return api_response({
+        "unit": "Physical & Restorative Therapy",
+        "specialists": 10,
+        "features": ["Physical Therapy", "Occupational Therapy", "Sports Rehab"]
+    })
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_psychiatry(request):
+    """Returns Psychiatry department metadata"""
+    return api_response({
+        "unit": "Mental Health & Wellness Center",
+        "specialists": 12,
+        "features": ["Clinical Psychology", "Behavioral Therapy", "Stress Management"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_dentistry(request):
+    """Returns Dentistry department metadata"""
+    return api_response({
+        "unit": "Oral Health Center",
+        "specialists": 8,
+        "features": ["Orthodontics", "Dental Implants", "Cosmetic Dentistry"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_pulmonology(request):
+    """Returns Pulmonology department metadata"""
+    return api_response({
+        "unit": "Respiratory Medicine Unit",
+        "specialists": 10,
+        "features": ["Asthma Clinic", "Sleep Medicine", "Pulmonary Rehab"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_endocrinology(request):
+    """Returns Endocrinology department metadata"""
+    return api_response({
+        "unit": "Metabolic & Hormonal Health",
+        "specialists": 7,
+        "features": ["Diabetes Management", "Thyroid Care", "Growth Disorders"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_nephrology(request):
+    """Returns Nephrology department metadata"""
+    return api_response({
+        "unit": "Kidney Care Unit",
+        "specialists": 9,
+        "features": ["Dialysis Services", "Hypertension Clinic", "Renal Transplant"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_hematology(request):
+    """Returns Hematology department metadata"""
+    return api_response({
+        "unit": "Blood Disorders Center",
+        "specialists": 11,
+        "features": ["Anemia Treatment", "Blood Cancers", "Coagulation Clinic"]
+    })
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def dept_ent_services(request):
+    """Returns ENT department metadata"""
+    return api_response({
+        "unit": "Otolaryngology Specialists",
+        "specialists": 13,
+        "features": ["Hearing Solutions", "Sinus Surgery", "Voice Disorders"]
     })

@@ -72,11 +72,113 @@
                             </li>
                         {% endfor %}
                     {% else %}
-                        {# Professional Placeholder Links #}
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Departments</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Research</a></li>
+                        {# Advanced Streamlined Fallback Hierarchy #}
+                        {# [Home] #}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        
+                        {# [About] #}
+                        <li class="nav-item dropdown mega-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="nav-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                            <div class="dropdown-menu shadow-premium border-0 animate-slide-in">
+                                <div class="container"><div class="row py-4">
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/"><h6>About Us</h6><p class="small text-muted mb-0">Learn about our legacy</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/history/"><h6>Hospital History</h6><p class="small text-muted mb-0">Decades of excellence</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/mission-vision/"><h6>Mission and Vision</h6><p class="small text-muted mb-0">Our core principles</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/leadership/"><h6>Leadership Team</h6><p class="small text-muted mb-0">Meet our board</p></a></div>
+                                    
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/board/"><h6>Board of Directors</h6><p class="small text-muted mb-0">Hospital Governance</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/facilities/"><h6>Hospital Facilities</h6><p class="small text-muted mb-0">World-class infrastructure</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/technology/"><h6>Technology & Equipment</h6><p class="small text-muted mb-0">Clinical innovation</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/awards/"><h6>Awards & Certifications</h6><p class="small text-muted mb-0">Recognized excellence</p></a></div>
+                                    
+                                    <div class="col-md-3"><a class="dropdown-item" href="/about/community/"><h6>Community Outreach</h6><p class="small text-muted mb-0">Making an impact</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/careers/"><h6>Careers</h6><p class="small text-muted mb-0">Join our medical team</p></a></div>
+                                </div></div>
+                            </div>
+                        </li>
+
+                        {# [Departments] #}
+                        <li class="nav-item dropdown mega-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="nav-depts" role="button" data-bs-toggle="dropdown" aria-expanded="false">Departments</a>
+                            <div class="dropdown-menu shadow-premium border-0 animate-slide-in">
+                                <div class="container"><div class="row py-4">
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/cardiology/"><h6>Cardiology</h6><p class="small text-muted mb-0">Heart and vascular care</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/neurology/"><h6>Neurology</h6><p class="small text-muted mb-0">Brain and nervous system</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/pediatrics/"><h6>Pediatrics</h6><p class="small text-muted mb-0">Specialized child care</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/orthopedics/"><h6>Orthopedics</h6><p class="small text-muted mb-0">Bone and joint health</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/dermatology/"><h6>Dermatology</h6><p class="small text-muted mb-0">Skin and aesthetic care</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/oncology/"><h6>Oncology</h6><p class="small text-muted mb-0">Advanced cancer treatment</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/gastroenterology/"><h6>Gastroenterology</h6><p class="small text-muted mb-0">Digestive system health</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/gynecology/"><h6>Gynecology</h6><p class="small text-muted mb-0">Women's health services</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/urology/"><h6>Urology</h6><p class="small text-muted mb-0">Urinary and renal care</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/ophthalmology/"><h6>Ophthalmology</h6><p class="small text-muted mb-0">Eye and vision center</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/radiology/"><h6>Radiology</h6><p class="small text-muted mb-0">Diagnostic imaging hub</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/internal-medicine/"><h6>Internal Medicine</h6><p class="small text-muted mb-0">Adult comprehensive care</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/family-medicine/"><h6>Family Medicine</h6><p class="small text-muted mb-0">Primary community care</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/rehabilitation/"><h6>Rehabilitation</h6><p class="small text-muted mb-0">Physical therapy & rehab</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/psychiatry/"><h6>Psychiatry</h6><p class="small text-muted mb-0">Mental health & wellness</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/dentistry/"><h6>Dentistry</h6><p class="small text-muted mb-0">Oral health center</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/pulmonology/"><h6>Pulmonology</h6><p class="small text-muted mb-0">Respiratory medicine</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/endocrinology/"><h6>Endocrinology</h6><p class="small text-muted mb-0">Metabolic health</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/nephrology/"><h6>Nephrology</h6><p class="small text-muted mb-0">Kidney care services</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/hematology/"><h6>Hematology</h6><p class="small text-muted mb-0">Blood disorders center</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/ent-services/"><h6>ENT Services</h6><p class="small text-muted mb-0">Otolaryngology care</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/departments/emergency/"><h6>Emergency Medicine</h6><p class="small text-muted mb-0">Critical 24/7 support</p></a></div>
+                                </div></div>
+                            </div>
+                        </li>
+
+                        {# [Doctors] #}
+                        <li class="nav-item dropdown mega-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="nav-doctors" role="button" data-bs-toggle="dropdown" aria-expanded="false">Doctors</a>
+                            <div class="dropdown-menu shadow-premium border-0 animate-slide-in">
+                                <div class="container"><div class="row py-4">
+                                    <div class="col-md-12"><a class="dropdown-item" href="/doctors/"><h6>Doctor Directory</h6><p class="small text-muted mb-0">Find and connect with our world-class specialists</p></a></div>
+                                </div></div>
+                            </div>
+                        </li>
+
+                        {# [Services] #}
+                        <li class="nav-item dropdown mega-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="nav-services" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+                            <div class="dropdown-menu shadow-premium border-0 animate-slide-in">
+                                <div class="container"><div class="row py-4">
+                                    <div class="col-md-4"><a class="dropdown-item" href="/appointments/book/"><h6>Book Appointment</h6><p class="small text-muted mb-0">Schedule your visit</p></a></div>
+                                    <div class="col-md-4"><a class="dropdown-item" href="/telemedicine/"><h6>Telemedicine</h6><p class="small text-muted mb-0">Virtual consultations & remote care</p></a></div>
+                                    <div class="col-md-4"><a class="dropdown-item" href="/appointments/status/"><h6>Appointment Status</h6><p class="small text-muted mb-0">Track your booking</p></a></div>
+                                    <div class="col-md-4"><a class="dropdown-item" href="/telemedicine/faq/"><h6>Telemedicine FAQ</h6><p class="small text-muted mb-0">Common questions</p></a></div>
+                                </div></div>
+                            </div>
+                        </li>
+
+                        {# [Patient Resources] #}
+                        <li class="nav-item dropdown mega-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="nav-patient-resources" role="button" data-bs-toggle="dropdown" aria-expanded="false">Patient Resources</a>
+                            <div class="dropdown-menu shadow-premium border-0 animate-slide-in">
+                                <div class="container"><div class="row py-4">
+                                    <div class="col-md-3"><a class="dropdown-item" href="/resources/insurance/"><h6>Insurance Info</h6><p class="small text-muted mb-0">Coverage & billing</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/resources/articles/"><h6>Health Articles</h6><p class="small text-muted mb-0">Expert medical insights</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/resources/symptom-checker/"><h6>Symptom Checker</h6><p class="small text-muted mb-0">Interactive diagnostic tool</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/research/"><h6>Clinical Research</h6><p class="small text-muted mb-0">Trials & publications</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/events/"><h6>Health Events</h6><p class="small text-muted mb-0">Conferences & camps</p></a></div>
+                                    <div class="col-md-3"><a class="dropdown-item" href="/resources/nutrition/"><h6>Nutrition & Diet</h6><p class="small text-muted mb-0">Healthy living guides</p></a></div>
+                                </div></div>
+                            </div>
+                        </li>
+
+                        {# [Contact] #}
+                        <li class="nav-item dropdown mega-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="nav-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a>
+                            <div class="dropdown-menu shadow-premium border-0 animate-slide-in">
+                                <div class="container"><div class="row py-4">
+                                    <div class="col-md-4"><a class="dropdown-item" href="/contact/"><h6>Contact Us</h6><p class="small text-muted mb-0">Get in touch with us</p></a></div>
+                                    <div class="col-md-4"><a class="dropdown-item" href="/contact/locations/"><h6>Hospital Locations</h6><p class="small text-muted mb-0">Find our centers</p></a></div>
+                                    <div class="col-md-4"><a class="dropdown-item" href="/contact/emergency/"><h6>Emergency Contacts</h6><p class="small text-muted mb-0">24/7 Critical support</p></a></div>
+                                </div></div>
+                            </div>
+                        </li>
                     {% endif %}
                     
                     <li class="nav-item ms-lg-4 d-flex align-items-center">

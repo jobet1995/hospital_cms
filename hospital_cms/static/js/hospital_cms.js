@@ -35,17 +35,14 @@ import ContactFormController from './forms/contact-form.js';
 import FeedbackFormController from './forms/feedback-form.js';
 import NewsletterFormController from './forms/newsletter-form.js';
 
-// Specialized Feature Modules
-import HomepageController from './homepage.js';
-import DoctorsController from './modules/doctors.js';
-import DepartmentsController from './modules/departments.js';
-import AppointmentsModule from './modules/appointments.js';
-import TelemedicineController from './modules/telemedicine.js';
-import ResearchController from './modules/research.js';
-import ResourcesController from './modules/resources.js';
-import EventsController from './modules/events.js';
-import FeedbackController from './modules/feedback.js';
-import ContactController from './modules/contact.js';
+// 7-Pillar Feature Modules
+import HomeModule from './modules/pillars/home.js';
+import AboutModule from './modules/pillars/about.js';
+import DepartmentsModule from './modules/pillars/departments.js';
+import DoctorsModule from './modules/pillars/doctors.js';
+import ServicesModule from './modules/pillars/services.js';
+import PatientResourcesModule from './modules/pillars/patient-resources.js';
+import ContactModule from './modules/pillars/contact.js';
 
 /**
  * Registry of all available modules for global access if needed.
@@ -75,16 +72,13 @@ const HospitalCMS = {
         Newsletter: NewsletterFormController
     },
     Modules: {
-        Homepage: HomepageController,
-        Doctors: DoctorsController,
-        Departments: DepartmentsController,
-        Appointments: AppointmentsModule,
-        Telemedicine: TelemedicineController,
-        Research: ResearchController,
-        Resources: ResourcesController,
-        Events: EventsController,
-        Feedback: FeedbackController,
-        Contact: ContactController
+        Home: HomeModule,
+        About: AboutModule,
+        Departments: DepartmentsModule,
+        Doctors: DoctorsModule,
+        Services: ServicesModule,
+        PatientResources: PatientResourcesModule,
+        Contact: ContactModule
     },
     // Registry for active instances
     Instances: {}
@@ -107,29 +101,45 @@ $(document).ready(() => {
     const pathname = window.location.pathname;
     const isHomePage = $('body').hasClass('home-page-template') || $('.hero-banner-premium').length > 0 || pathname === '/';
     
-    // Page detection mapping
+    // Page detection mapping aligned with the 7 streamlined categories
     const moduleMap = {
+        'about': pathname.includes('/about') || pathname.includes('/careers'),
         'doctors': pathname.includes('/doctors'),
         'departments': pathname.includes('/departments'),
-        'research': pathname.includes('/research') || pathname.includes('/publications')
+        'services': pathname.includes('/appointments') || pathname.includes('/telemedicine'),
+        'patient-resources': pathname.includes('/resources') || pathname.includes('/research') || pathname.includes('/events'),
+        'contact': pathname.includes('/contact')
     };
 
     HospitalCMS.Instances.Modules = HospitalCMS.Instances.Modules || {};
 
     if (isHomePage) {
-        console.log('[ORCHESTRATION]: Homepage detected. Prioritizing Home Module...');
-        HospitalCMS.Instances.Modules.homepage = new HomepageController();
-        HospitalCMS.Instances.Modules.homepage.init();
+        console.log('[ORCHESTRATION]: Homepage detected. Prioritizing Home Pillar...');
+        HospitalCMS.Instances.Modules.home = new HomeModule();
+        HospitalCMS.Instances.Modules.home.init();
     } else {
         // Priority detection for other major pages
         const activeModuleName = Object.keys(moduleMap).find(key => moduleMap[key]);
         if (activeModuleName) {
-            console.log(`[ORCHESTRATION]: ${activeModuleName.toUpperCase()} page detected. Prioritizing Module...`);
-            const Controller = activeModuleName === 'doctors' ? DoctorsController : 
-                               activeModuleName === 'departments' ? DepartmentsController : ResearchController;
+            console.log(`[ORCHESTRATION]: ${activeModuleName.toUpperCase()} category detected. Prioritizing Module...`);
             
-            HospitalCMS.Instances.Modules[activeModuleName] = new Controller();
-            HospitalCMS.Instances.Modules[activeModuleName].init();
+            // Map the active category to the primary pillar
+            let Pillar;
+            switch(activeModuleName) {
+                case 'home': Pillar = HomeModule; break;
+                case 'about': Pillar = AboutModule; break;
+                case 'departments': Pillar = DepartmentsModule; break;
+                case 'doctors': Pillar = DoctorsModule; break;
+                case 'services': Pillar = ServicesModule; break;
+                case 'patient-resources': Pillar = PatientResourcesModule; break;
+                case 'contact': Pillar = ContactModule; break;
+                default: Pillar = null;
+            }
+            
+            if (Pillar) {
+                HospitalCMS.Instances.Modules[activeModuleName] = new Pillar();
+                HospitalCMS.Instances.Modules[activeModuleName].init();
+            }
         }
     }
 
@@ -141,26 +151,17 @@ $(document).ready(() => {
     HospitalCMS.Instances.Navbar.init();
     HospitalCMS.Instances.Footer.init();
 
-    // 4. Initialize remaining feature modules
-    console.log('[ORCHESTRATION]: Initializing Remaining Feature Modules...');
-    const allModules = {
-        homepage: HomepageController,
-        doctors: DoctorsController,
-        departments: DepartmentsController,
-        appointments: AppointmentsModule,
-        telemedicine: TelemedicineController,
-        research: ResearchController,
-        resources: ResourcesController,
-        events: EventsController,
-        feedback: FeedbackController,
-        contact: ContactController
-    };
 
-    Object.entries(allModules).forEach(([name, Controller]) => {
-        // Only initialize if not already prioritized
-        if (!HospitalCMS.Instances.Modules[name]) {
-            HospitalCMS.Instances.Modules[name] = new Controller();
-            HospitalCMS.Instances.Modules[name].init();
+    // 4. Initialize remaining feature modules by Pillar
+    console.log('[ORCHESTRATION]: Initializing Remaining Feature Modules Pillar by Pillar...');
+    const pillars = HospitalCMS.Modules;
+
+    Object.entries(pillars).forEach(([name, Pillar]) => {
+        const lowerName = name.toLowerCase();
+        // Only initialize if not already prioritized in Instances
+        if (!HospitalCMS.Instances.Modules[lowerName]) {
+            HospitalCMS.Instances.Modules[lowerName] = new Pillar();
+            HospitalCMS.Instances.Modules[lowerName].init();
         }
     });
 

@@ -1,0 +1,50 @@
+/**
+ * Premium AJAX Global Loader Styles
+ */
+.ajax-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    z-index: 9999;
+    transition: width 0.3s ease-out, opacity 0.3s ease-in;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+    opacity: 0;
+}
+
+.ajax-progress-bar.loading {
+    opacity: 1;
+}
+
+.ajax-progress-bar.finish {
+    width: 100% !important;
+    opacity: 0;
+}
+
+/* Optional spinner for more visual feedback */
+.ajax-spinner {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(52, 152, 219, 0.1);
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    z-index: 9999;
+    animation: ajax-spin 0.8s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.ajax-spinner.loading {
+    opacity: 1;
+}
+
+@keyframes ajax-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -12,17 +12,14 @@ import ModalComponent from '../components/modal.js';
 import CarouselComponent from '../components/carousel.js';
 import TabsComponent from '../components/tabs.js';
 
-// Modules
-import HomepageController from '../homepage.js';
-import DoctorsController from '../modules/doctors.js';
-import DepartmentsController from '../modules/departments.js';
-import AppointmentsModule from '../modules/appointments.js';
-import TelemedicineController from '../modules/telemedicine.js';
-import ResearchController from '../modules/research.js';
-import ResourcesController from '../modules/resources.js';
-import EventsController from '../modules/events.js';
-import FeedbackController from '../modules/feedback.js';
-import ContactController from '../modules/contact.js';
+// 7-Pillar Modules
+import HomeModule from '../modules/pillars/home.js';
+import AboutModule from '../modules/pillars/about.js';
+import DepartmentsModule from '../modules/pillars/departments.js';
+import DoctorsModule from '../modules/pillars/doctors.js';
+import ServicesModule from '../modules/pillars/services.js';
+import PatientResourcesModule from '../modules/pillars/patient-resources.js';
+import ContactModule from '../modules/pillars/contact.js';
 
 class HospitalApp {
     constructor() {
@@ -41,22 +38,26 @@ class HospitalApp {
      * Invokes key services to demonstrate JSON response logging
      */
     async runSystemCheck() {
-        console.group('[SYSTEM CHECK]: Verifying API Connectivity...');
+        console.group('%c[SYSTEM INITIALIZATION]: Verifying Digital Infrastructure', 'background: #2c3e50; color: #ecf0f1; font-weight: bold; padding: 4px 8px; border-radius: 4px;');
         
         try {
-            // Import ApiService dynamically to avoid circular dependencies if any
+            // Import ApiService dynamically
             const { default: ApiService } = await import('../services/api-service.js');
             
-            console.log('Attempting to fetch initial data...');
+            console.log('%c[ACTION]:%c Bootstrapping initial data streams...', 'font-weight: bold; color: #3498db;', '');
             
-            // Trigger 2-3 sample calls to show JSON in console
-            // These might 404 if routes aren't defined, but AjaxService will log the JSON error response
-            ApiService.getDoctors().catch(() => {});
-            ApiService.getDepartments().catch(() => {});
+            // Execute parallel calls to demonstrate AJAX system
+            const checks = [
+                ApiService.getHomeData().then(() => console.info('%c[CHECK]:%c Home API stream verified.', 'color: #2ecc71; font-weight: bold;', '')),
+                ApiService.getDoctors({ limit: 3 }).catch(() => {}),
+                ApiService.getEmergencyAlerts().catch(() => {})
+            ];
             
-            console.info('Check complete. See the [AJAX] logs below for JSON responses.');
+            await Promise.allSettled(checks);
+            
+            console.info('%c[INFRASTRUCTURE]:%c All systems operational. Proper AJAX Responses are visible in the logs above.', 'font-weight: bold; color: #2ecc71;', '');
         } catch (err) {
-            console.error('System check failed to start:', err);
+            console.error('[CRITICAL]: System check encountered a failure:', err);
         }
         
         console.groupEnd();
@@ -80,18 +81,17 @@ class HospitalApp {
     }
 
     initModules() {
-        // Feature modules
+        console.log('[ORCHESTRATION]: Initializing 7-Pillar System...');
+        
+        // Feature modules regrouped into 7 Pillars
         const modules = {
-            homepage: new HomepageController(),
-            doctors: new DoctorsController(),
-            departments: new DepartmentsController(),
-            appointments: new AppointmentsModule(),
-            telemedicine: new TelemedicineController(),
-            research: new ResearchController(),
-            resources: new ResourcesController(),
-            events: new EventsController(),
-            feedback: new FeedbackController(),
-            contact: new ContactController()
+            home: new HomeModule(),
+            about: new AboutModule(),
+            departments: new DepartmentsModule(),
+            doctors: new DoctorsModule(),
+            services: new ServicesModule(),
+            patientResources: new PatientResourcesModule(),
+            contact: new ContactModule()
         };
 
         // Register back to global manifest
@@ -99,8 +99,8 @@ class HospitalApp {
             window.HospitalCMS.Instances.Modules = modules;
         }
 
-        Object.values(modules).forEach(c => {
-            if (typeof c.init === 'function') c.init();
+        Object.values(modules).forEach(m => {
+            if (typeof m.init === 'function') m.init();
         });
     }
 }

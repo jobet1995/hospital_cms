@@ -29,4 +29,5 @@
 /* Utilities and Enhancements */
 @import url('utilities.css');
 @import url('animations.css');
+@import url('ajax-loader.css');
 @import url('responsive.css');
