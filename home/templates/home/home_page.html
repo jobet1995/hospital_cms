@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 {% elif block.block_type == 'emergency_banner' %}
-                    {% include "blocks/emergency_banner.html" with value=block.value %}
+                    {% include_block block %}
                 {% elif block.block_type == 'testimonials' %}
                     <div class="testimonials-slider-premium py-5">
                         <div class="container">
