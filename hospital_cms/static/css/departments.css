@@ -1,0 +1,37 @@
+/* Department Page Styles */
+
+.department-header {
+    background-color: var(--primary-light);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.department-intro {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg);
+    font-size: 1.15rem;
+}
+
+.department-services {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.service-item {
+    padding: var(--spacing-md);
+    border-left: 4px solid var(--primary-color);
+    background-color: var(--white);
+    box-shadow: var(--shadow-soft);
+}
+
+.department-faq {
+    margin-top: var(--spacing-xl);
+}
+
+.faq-item {
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+}

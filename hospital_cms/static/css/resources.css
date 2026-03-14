@@ -1,0 +1,42 @@
+/* Health Resources Styles */
+
+.resource-category {
+    margin-bottom: var(--spacing-xl);
+}
+
+.resource-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.resource-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    transition: var(--transition-fast);
+}
+
+.resource-item:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+}
+
+.resource-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.resource-info h4 {
+    margin-bottom: 2px;
+}
+
+.resource-info p {
+    font-size: var(--font-size-small);
+    color: var(--text-muted);
+    margin-bottom: 0;
+}

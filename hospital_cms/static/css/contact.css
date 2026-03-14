@@ -1,0 +1,38 @@
+/* Contact Page Styles */
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-xl);
+}
+
+.contact-info-list {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+}
+
+.contact-info-item {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.contact-info-item i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.map-container {
+    width: 100%;
+    height: 400px;
+    background-color: var(--light-bg);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-xl);
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .contact-wrapper { grid-template-columns: 1fr; }
+}

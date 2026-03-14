@@ -1,0 +1,50 @@
+/* Doctor Profile Styles */
+
+.doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.doctor-card {
+    text-align: center;
+}
+
+.doctor-photo-container {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto var(--spacing-md);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid var(--primary-light);
+}
+
+.doctor-photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.doctor-specialty {
+    color: var(--primary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.doctor-bio {
+    font-size: var(--font-size-base);
+    color: var(--text-muted);
+}
+
+.doctor-schedule {
+    background-color: var(--light-bg);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-md);
+}
+
+.schedule-list {
+    font-size: var(--font-size-small);
+}

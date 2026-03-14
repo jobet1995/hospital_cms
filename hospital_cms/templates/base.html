@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script>console.log('!!! BASE.HTML DETECTED !!!');</script>
         <meta charset="utf-8" />
         <title>
             {% block title %}
@@ -36,15 +37,49 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
-            {% wagtail_userbar %}       
-            {% block content %}{% endblock %}
+        {% wagtailuserbar %}
 
-        {# jQuery #}
+        {% get_settings %}
+        {% with settings.home.SiteSettings as site_settings %}
+            
+            {# Global Navbar #}
+            {% if site_settings.navbar %}
+                {% for block in site_settings.navbar %}
+                    {% include_block block %}
+                {% endfor %}
+            {% endif %}
+
+            <main id="main-content">
+                {% block content %}{% endblock %}
+            </main>
+
+            {# Global Footer #}
+            {% if site_settings.footer %}
+                {% for block in site_settings.footer %}
+                    {% include_block block %}
+                {% endfor %}
+            {% endif %}
+
+        {% endwith %}
+
+        {# jQuery 4.0.0 (Local) #}
         <script type="text/javascript" src="{% static 'js/jquery-4.0.0.min.js' %}"></script>
+        <script>
+            // Professional Workaround: Spoof version for Bootstrap's legacy check
+            if (window.jQuery) {
+                window._jq_original_version = jQuery.fn.jquery;
+                jQuery.fn.jquery = '3.7.1'; 
+            }
+        </script>
         {# Bootstrap JS #}
         <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-        {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/hospital_cms.js' %}"></script>
+        <script>
+            // Restore original version immediately after Bootstrap loads
+            if (window.jQuery && window._jq_original_version) {
+                jQuery.fn.jquery = window._jq_original_version;
+            }
+        </script>
+        <script type="module" src="{% static 'js/hospital_cms.js' %}"></script>
 
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}

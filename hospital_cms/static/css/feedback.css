@@ -1,0 +1,32 @@
+/* Feedback and Testimonials Page Styles */
+
+.feedback-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl);
+}
+
+.testimonial-list {
+    column-count: 3;
+    column-gap: var(--spacing-lg);
+}
+
+.testimonial-item {
+    break-inside: avoid;
+    margin-bottom: var(--spacing-lg);
+}
+
+@media (max-width: 992px) {
+    .testimonial-list { column-count: 2; }
+}
+
+@media (max-width: 576px) {
+    .testimonial-list { column-count: 1; }
+}
+
+.patient-story {
+    background-color: var(--secondary-light);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
+}

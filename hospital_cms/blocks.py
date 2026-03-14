@@ -2,6 +2,101 @@ from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 
+class HeroBannerBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, help_text="Main title for the hero banner")
+    subtitle = blocks.TextBlock(required=False, help_text="Optional subtitle text")
+    cta_button = blocks.StructBlock([
+        ('text', blocks.CharBlock(required=True, help_text="Button text")),
+        ('link', blocks.URLBlock(required=True, help_text="Button link URL")),
+    ], required=False, help_text="Call to action button")
+    background_image = ImageChooserBlock(required=False, help_text="Background image for the banner")
+
+    class Meta:
+        icon = 'image'
+        label = 'Hero Banner'
+
+
+class DepartmentCardBlock(blocks.StructBlock):
+    name = blocks.CharBlock(required=True, help_text="Department name")
+    description = blocks.RichTextBlock(required=False, help_text="Department description")
+    link = blocks.URLBlock(required=False, help_text="Link to department page")
+    image = ImageChooserBlock(required=False, help_text="Department image")
+
+    class Meta:
+        icon = 'folder'
+        label = 'Department Card'
+
+
+class DoctorCardBlock(blocks.StructBlock):
+    name = blocks.CharBlock(required=True, help_text="Doctor's name")
+    specialty = blocks.CharBlock(required=True, help_text="Doctor's specialty")
+    photo = ImageChooserBlock(required=False, help_text="Doctor's photo")
+    link = blocks.URLBlock(required=False, help_text="Link to doctor's profile")
+
+    class Meta:
+        icon = 'user'
+        label = 'Doctor Card'
+
+
+class TipBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=True, help_text="Tip title")
+    description = blocks.TextBlock(required=True, help_text="Tip description")
+    icon = ImageChooserBlock(required=False, help_text="Tip icon or image")
+
+    class Meta:
+        icon = 'help'
+        label = 'Health Tip'
+
+
+class NewsCardBlock(blocks.StructBlock):
+    headline = blocks.CharBlock(required=True, help_text="News headline")
+    date = blocks.DateBlock(required=True, help_text="Publication date")
+    summary = blocks.TextBlock(required=True, help_text="News summary")
+    link = blocks.URLBlock(required=False, help_text="Link to full article")
+
+    class Meta:
+        icon = 'doc-full'
+        label = 'News Card'
+
+
+class EmergencyBannerBlock(blocks.StructBlock):
+    message = blocks.TextBlock(required=True, help_text="Emergency message")
+    icon = ImageChooserBlock(required=False, help_text="Emergency icon")
+    urgency_level = blocks.ChoiceBlock(choices=[
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High'),
+    ], required=True, help_text="Urgency level")
+    link = blocks.URLBlock(required=False, help_text="Link for more info")
+
+    class Meta:
+        icon = 'warning'
+        label = 'Emergency Banner'
+
+
+class TestimonialBlock(blocks.StructBlock):
+    patient_name = blocks.CharBlock(required=True, help_text="Patient's name")
+    photo = ImageChooserBlock(required=False, help_text="Patient's photo")
+    testimonial_text = blocks.RichTextBlock(required=True, help_text="Testimonial text")
+    rating = blocks.IntegerBlock(min_value=1, max_value=5, required=True, help_text="Rating out of 5")
+
+    class Meta:
+        icon = 'comment'
+        label = 'Testimonial'
+
+
+class QuickLinkBlock(blocks.StructBlock):
+    label = blocks.CharBlock(required=True, help_text="Link label")
+    icon = blocks.CharBlock(required=False, help_text="CSS class for icon")
+    link = blocks.URLBlock(required=True, help_text="Link URL")
+
+    class Meta:
+        icon = 'link'
+        label = 'Quick Link'
+
+
+
+
 class NavLinkBlock(blocks.StructBlock):
     label = blocks.CharBlock(required=True, help_text="Link text")
     url = blocks.URLBlock(required=True, help_text="Link URL")
@@ -30,6 +125,7 @@ class NavbarBlock(blocks.StructBlock):
     class Meta:
         icon = 'cog'
         label = 'Navbar'
+        template = 'blocks/navbar.html'
 
 
 class FooterLinkBlock(blocks.StructBlock):
@@ -39,6 +135,7 @@ class FooterLinkBlock(blocks.StructBlock):
     class Meta:
         icon = 'link'
         label = 'Footer Link'
+        template = 'blocks/footer.html'
 
 
 class SocialMediaBlock(blocks.StructBlock):
@@ -70,3 +167,4 @@ class FooterBlock(blocks.StructBlock):
     class Meta:
         icon = 'doc-full'
         label = 'Footer'
+        template = 'blocks/footer.html'

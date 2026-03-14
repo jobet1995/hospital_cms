@@ -1,0 +1,87 @@
+{% load static %}
+<div class="header-wrapper">
+    {# Advanced Top Bar #}
+    <div class="top-bar d-none d-lg-block">
+        <div class="container d-flex justify-content-between align-items-center py-2">
+            <div class="top-bar-contact d-flex gap-4">
+                <span class="small"><i class="fas fa-phone-alt me-2 text-primary"></i> 24/7 Support: {{ value.contact_info.phone|default:"+1 800 555 0199" }}</span>
+                <span class="small"><i class="fas fa-map-marker-alt me-2 text-primary"></i> Leading Health Center, Global City</span>
+            </div>
+            <div class="top-bar-social d-flex gap-3">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <span class="ms-3 border-start ps-3 small text-muted"><i class="far fa-clock me-2"></i> Mon - Sat: 8:00 - 20:00</span>
+            </div>
+        </div>
+    </div>
+
+    {# Main Premium Navbar #}
+    <nav class="navbar navbar-expand-lg main-nav">
+        <div class="container py-3">
+            <a class="navbar-brand d-flex align-items-center" href="{{ value.logo_link|default:'/' }}">
+                <div class="brand-logo me-2">
+                    {% if value.logo %}
+                        {% image value.logo original as logo_img %}
+                        <img src="{{ logo_img.url }}" alt="Hospital Logo" height="45">
+                    {% else %}
+                        <div class="placeholder-logo"><i class="fas fa-hospital-symbol"></i></div>
+                    {% endif %}
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">HOSPITAL</span>
+                    <span class="brand-sub">CENTER</span>
+                </div>
+            </a>
+
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    {% for link in value.nav_links %}
+                        <li class="nav-item {% if link.sub_links %}dropdown mega-dropdown{% endif %}">
+                            {% if link.sub_links %}
+                                <a class="nav-link dropdown-toggle" href="#" id="nav-{{ forloop.counter }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ link.label }}
+                                </a>
+                                <div class="dropdown-menu shadow-premium border-0 animate-slide-in">
+                                    <div class="container">
+                                        <div class="row py-4">
+                                            {% for sub in link.sub_links %}
+                                                <div class="col-md-3">
+                                                    <a class="dropdown-item" href="{{ sub.url }}">
+                                                        <div class="item-content">
+                                                            <h6>{{ sub.label }}</h6>
+                                                            <p class="small text-muted mb-0">Learn more about this service</p>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a class="nav-link" href="{{ link.url }}">{{ link.label }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    
+                    <li class="nav-item ms-lg-4 d-flex align-items-center">
+                        <button class="search-trigger me-4" id="searchTrigger">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        {% if value.cta_button %}
+                            <a href="{{ value.cta_button.url }}" class="btn btn-premium rounded-pill px-4">
+                                <span class="d-none d-xl-inline">Book </span>{{ value.cta_button.text }}
+                            </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

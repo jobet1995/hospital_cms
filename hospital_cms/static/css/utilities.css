@@ -1,0 +1,44 @@
+/* Utility Classes */
+
+/* Spacing - Padding & Margin */
+.m-0 { margin: 0 !important; }
+.p-0 { padding: 0 !important; }
+
+.mt-1 { margin-top: var(--spacing-sm) !important; }
+.mt-2 { margin-top: var(--spacing-md) !important; }
+.mt-3 { margin-top: var(--spacing-lg) !important; }
+.mt-4 { margin-top: var(--spacing-xl) !important; }
+
+.mb-1 { margin-bottom: var(--spacing-sm) !important; }
+.mb-2 { margin-bottom: var(--spacing-md) !important; }
+.mb-3 { margin-bottom: var(--spacing-lg) !important; }
+.mb-4 { margin-bottom: var(--spacing-xl) !important; }
+
+/* Alignment */
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+
+/* Display */
+.d-block { display: block !important; }
+.d-none { display: none !important; }
+.d-flex { display: flex !important; }
+.d-inline-block { display: inline-block !important; }
+
+/* Flexbox utilities */
+.align-center { align-items: center !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-center { justify-content: center !important; }
+
+/* Colors */
+.text-primary { color: var(--primary-color) !important; }
+.text-secondary { color: var(--secondary-color) !important; }
+.text-emergency { color: var(--emergency-color) !important; }
+.text-white { color: var(--white) !important; }
+.bg-light { background-color: var(--light-bg) !important; }
+
+/* Visibility */
+.hidden { display: none !important; }
+
+/* Overflow */
+.overflow-hidden { overflow: hidden !important; }

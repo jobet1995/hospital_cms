@@ -1,0 +1,32 @@
+/* Main Global CSS Entry Point */
+
+/* Core Definitions */
+@import url('variables.css');
+@import url('base.css');
+@import url('typography.css');
+@import url('layout.css');
+@import url('grid.css');
+
+/* UI Components */
+@import url('buttons.css');
+@import url('cards.css');
+@import url('forms.css');
+@import url('navbar.css');
+@import url('footer.css');
+
+/* Specialized Module Styles */
+@import url('homepage.css');
+@import url('departments.css');
+@import url('doctors.css');
+@import url('appointments.css');
+@import url('telemedicine.css');
+@import url('research.css');
+@import url('resources.css');
+@import url('events.css');
+@import url('feedback.css');
+@import url('contact.css');
+
+/* Utilities and Enhancements */
+@import url('utilities.css');
+@import url('animations.css');
+@import url('responsive.css');

@@ -1,0 +1,49 @@
+/* Appointment Booking Styles */
+
+.appointment-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-medium);
+}
+
+.appointment-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+}
+
+.step {
+    z-index: 2;
+    background-color: var(--white);
+    padding: 0 var(--spacing-sm);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin: 0 auto var(--spacing-xs);
+}
+
+.step.active .step-number {
+    background-color: var(--primary-color);
+}
+
+.step-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.appointment-form .grid {
+    gap: var(--spacing-md);
+}

@@ -123,6 +123,7 @@ class NavbarBlock(blocks.StructBlock):
     class Meta:
         icon = 'cog'
         label = 'Navbar'
+        template = 'blocks/navbar.html'
 
 
 class FooterLinkBlock(blocks.StructBlock):
@@ -163,6 +164,7 @@ class FooterBlock(blocks.StructBlock):
     class Meta:
         icon = 'doc-full'
         label = 'Footer'
+        template = 'blocks/footer.html'
 
 
 class NavbarStreamBlock(blocks.StreamBlock):

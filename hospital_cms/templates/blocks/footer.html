@@ -1,0 +1,103 @@
+{% load static %}
+<footer class="footer-premium">
+    <div class="footer-top py-xl-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                {# Brand Column #}
+                <div class="col-lg-4">
+                    <div class="footer-brand mb-4">
+                        <div class="placeholder-logo-light mb-3"><i class="fas fa-hospital-symbol me-2"></i> HOSPITAL CMS</div>
+                        <p class="text-slate-400 pe-lg-5">
+                            Pioneering excellence in medical care through innovation, compassion, and world-class expertise. We are committed to your health journey.
+                        </p>
+                    </div>
+                    <div class="social-cluster">
+                        <h6 class="text-white mb-3 small text-uppercase fw-bold">Connect With Us</h6>
+                        <div class="d-flex gap-2">
+                            {% for social in value.social_links %}
+                                <a href="{{ social.url }}" class="social-circle">
+                                    {% if social.icon %}
+                                        {% image social.icon original as social_icon %}
+                                        <img src="{{ social_icon.url }}" alt="{{ social.platform }}">
+                                    {% else %}
+                                        <i class="fab fa-{{ social.platform }}"></i>
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {# Navigation Columns #}
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="footer-heading">Services</h6>
+                    <ul class="footer-nav">
+                        {% for link in value.quick_links %}
+                            <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                {# Contact Column #}
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="footer-heading">Contact Us</h6>
+                    <ul class="footer-contact-info">
+                        <li>
+                            <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+                            <div class="info-content">
+                                <span class="label">Emergency 24/7</span>
+                                <span class="value text-danger fw-bold">{{ value.emergency_hotline }}</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-box"><i class="fas fa-envelope-open-text"></i></div>
+                            <div class="info-content">
+                                <span class="label">Email Address</span>
+                                <a href="mailto:{{ value.contact_info.email }}" class="value">{{ value.contact_info.email }}</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-box"><i class="fas fa-map-marked-alt"></i></div>
+                            <div class="info-content">
+                                <span class="label">Our Location</span>
+                                <span class="value">{{ value.contact_info.address }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                {# Newsletter Column #}
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="footer-heading">Newsletter</h6>
+                    <p class="text-slate-400 small mb-4">Get the latest healthcare tips and hospital updates delivered to your inbox.</p>
+                    {% if value.newsletter_form %}
+                        <div class="newsletter-premium">
+                            <form class="newsletter-form position-relative">
+                                <input type="email" class="form-control" placeholder="Your email address">
+                                <button type="submit" class="newsletter-submit"><i class="fas fa-paper-plane"></i></button>
+                            </form>
+                            <div class="mt-2 small text-slate-500">
+                                <i class="fas fa-shield-alt me-1"></i> We respect your privacy.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Bottom Bar #}
+    <div class="footer-bottom py-4">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="copyright small text-slate-500 mb-3 mb-md-0">
+                &copy; {% now "Y" %} Medical Center. Design with care. <a href="#" class="ms-2">Privacy Policy</a> <a href="#" class="ms-2">Terms of Use</a>
+            </div>
+            <div class="accreditations">
+                <span class="small text-slate-600 me-3">Recognized by:</span>
+                <i class="fas fa-certificate text-slate-700 me-3" title="Health Safety Certified"></i>
+                <i class="fas fa-award text-slate-700 me-3" title="Excellence in Care"></i>
+                <i class="fas fa-user-shield text-slate-700" title="Data Privacy Guaranteed"></i>
+            </div>
+        </div>
+    </div>
+</footer>

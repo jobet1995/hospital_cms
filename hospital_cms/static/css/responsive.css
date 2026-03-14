@@ -1,0 +1,53 @@
+/* Responsive Overrides and Global Breakpoints */
+
+/* Standard Breakpoints: 576, 768, 992, 1200 */
+
+@media (max-width: 1200px) {
+    .container { max-width: 960px; }
+}
+
+@media (max-width: 992px) {
+    .container { max-width: 720px; }
+    
+    .section { padding: var(--spacing-lg) 0; }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+}
+
+@media (max-width: 768px) {
+    .container { max-width: 540px; }
+    
+    .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .container { padding: 0 var(--spacing-sm); }
+    
+    .navbar-container {
+        height: 70px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+}
+
+/* Accessibility Focus States */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
